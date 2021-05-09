@@ -1,0 +1,12 @@
+= Simple thoughs on programming matters - Aleksandr Erokhin
+:stylesdir: stylesheets
+:stylesheet: adoc-github.css
+
+== About
+TODO write stuff here
+
+== Posts
+
+- link:posts/what-is-the-right-unit-in-unit-test-after-all/post.html[What is the right unit in Unit Test after all]
+- link:posts/override-build-number-in-your-azure-pipeline/post.html[Override build number in your Azure pipeline]
+- link:posts/how-to-deal-with-nullpointerexception-in-java/post.html[How to deal with nullpointerexception in java]

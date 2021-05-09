@@ -1,0 +1,87 @@
+= What is the right unit in Unit Test after all
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+
+When I started my fist job as a programmer I was told by my mentor colleague that Unit Tests are my “best friends” and a “safety net”, and that I should not worry much about my code as long as tests are green.
+
+And then I got my first task.
+
+It was a pretty simple one. I don’t remember the exact task, but it was something like adding another use case for a certain feature in certain conditions. And it could be done rather simply, but I saw a refactoring opportunity: introducing a common interface for the feature and letting polymorphism to do the job for me. I was pretty happy with the solution right until the time I’ve run the build on my local machine. Around 50% of tests were red and I was very close to a panic state!
+
+I didn’t know what was wrong because my implementation looked just fine. I started checking failing tests one by one. Frankly, I didn’t understand major part of tests. Not because the code was too complicated for me back then, but rather because it was absolutely not clear what a test was actually testing. So there was no way for me to simply fix it. Also I was kind of worried that my first PR containing that much changes for a simple task will not be accepted.
+
+I’ve ended up reverting my changes and adding a simple if…else statement to cover the requirement.
+
+.Most of my refactoring attempts
+image::refactor-meme.jpg[Most of my refactoring attempts]
+
+That’s how I met Unit Test. I certainly didn’t feel they were friendly, and they weren’t for sure my safety net. All because by that team in that company Unit Tests were used wrong.
+
+I’ve realized it long after, when doing a major refactoring on another project in another company. Even minor refactoring caused the majority of tests to go red, and I ended up removing all Unit Tests from the project and using Integration Test-Suite as my safety net there.
+
+All this happened because Unit Tests depended too much on implementation details. They treated a single Class as a Unit eligible for testing, mocking all external dependencies. That’s why when these implementation details were changed just a little bit – it broke most of existing tests.
+
+== So what is a Unit?
+
+Paul Hamill says the following about Unit Tests:
+
+[quote, Paul Hamill, Unit Test Frameworks: Tools for High-Quality Software Development]
+____
+Unit tests are typically automated tests written and run by software developers to ensure that a section of an application (known as the “unit”) meets its design and behaves as intended.
+____
+
+Most important part in this definition is where he talks about a section of an application, without strict definition of this section.
+
+If we check now what is commonly considered as a Unit, we’ll see something like that:
+
+[quote, Unit testing, Wikipedia]
+----
+In procedural programming, a unit could be an entire module, but it is more commonly an individual function or procedure. In object-oriented programming, a unit is often an entire interface, such as a class, but could be an individual method.
+----
+
+nd that is where it gets all wrong. A section of an application could be literally anything, that has an intended behavior eligible for testing. It is not limited to units of code that certain programming language supports. And it’s most certainly should not depend on that underlying language. Because that would mean that implementing the same functionality in different languages would require us to write different Unit Tests to cover it.
+
+This way we come to a very convenient definition of a Unit as a defined piece of behavior.
+
+By defined piece of behavior I mean:
+
+ -behavior that is described by a customer or specification that was a driver for the implementation;
+- this piece has an interface specified strictly;
+- it is specified how interface reacts to different input values;
+- set of values that could be produced is specified;
+
+This all should sound familiar to you. You might even say that I am talking about Functional Testing, and you will be right to an extend.
+
+For a long time for some reason Unit Tests and Functional tests were considered different kind of tests you can write for your application. And it all comes from misunderstanding that a Unit shouldn’t necessary be a code construct supported by a language, when it is rather a piece of isolated behavior inside the application that cross-cuts a lot of application structures and levels. And doesn’t really depend on those structures and levels verifying that everything works as expected. This provides you so needed freedom in changing things around in your internal implementation, relying on a safety net that will catch you if intended behavior is compromised.
+
+== Why is this important?
+
+Coming back to my story, too tightly coupled unit tests have stopped me from introducing more clean and generic solution to the problem I was facing. This solution would allow the whole development team to easily extend implementation in case of new requirements and would made the code base easily maintainable.
+
+Instead I was constrained by Unit Tests to write code that better complies to the Unit Test structure.
+
+This will end up in piling up technical dept in future, causing major refactoring changes, that will require dropping of the entire tests suite. And all this is definitely not what is intended by Unit Tests.
+
+== How come no one though of that before?
+
+Lots of people have, actually. But for some reason there is still a lot of confusion around the topic.
+
+For example Kent Beck https://timsdevblog.wordpress.com/2015/03/30/kent-beck-on-tdd/[says the following on the topic]:
+
+[quote, Kent Beck]
+____
+Tests are often described by dichotomies: unit vs. functional, black-box vs. white-box, testing vs. design, tester vs. coder. Test-driven development (TDD) doesn’t fit comfortably in any of these dichotomies.
+
+Dichotomy is a tricky tool, turning easily in the hand. The quick, comfortable division into this or that inevitably misses the nuances of the real situation.
+____
+
+Meaning that is effectively no difference between Unit Test and Functional Test and it all comes down to the situation you are in and to what you actually consider as a Unit.
+
+Also check out https://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests/153565#153565[this answer on stackoverflow] from him in case you find yourself among people who believe that every piece of code should be covered with a test.
+
+There is a great talk available by Ian Cooper – one of TDD pioneers.
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EZ05e7EMOLM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+++++

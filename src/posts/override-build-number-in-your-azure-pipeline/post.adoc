@@ -1,0 +1,25 @@
+= Override build number in your Azure pipeline
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+
+If you are using Azure DevOps, the build number is generated for you automatically based on the current date and you end up with something like 20200923.4 (meaning it was a 4th build on 23rd of September). Frankly, this is not very descriptive.
+
+Good thing – you can override it using special logging commands. The command we are looking for is ##vso[build.updatebuildnumber] and it can be executed from your pipeline.
+
+All is needed is to include a step with the following bash script:
+
+[soruce,java]
+----
+- bash: |
+    echo "##vso[build.updatebuildnumber]Release $(Version)"
+  name: SetReleaseBuildName
+----
+
+`$(Version)` is set during one of the previous steps. You can configure it based on your requirements or preferences.
+
+Some additional notes:
+
+- build will start with a default number, it will be overwritten only after execution of the specified step;
+- the maximum length of a build number is 255 characters;
+- it is forbidden to use following characters in build number: ‘“‘, ‘/’, ‘:’, ‘<’, ‘>’, ‘\’, ‘|’, ‘?’, ‘@’, and ‘*’.

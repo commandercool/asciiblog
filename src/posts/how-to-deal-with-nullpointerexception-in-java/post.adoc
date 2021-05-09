@@ -1,4 +1,5 @@
 = How to deal with NullPointerException in Java
+Aleks Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
 
@@ -8,7 +9,7 @@ Other JVM languages, https://kotlinlang.org/docs/null-safety.html[like Kotlin fo
 
 Starting from Java 8 there are https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html[Optionals]. But even though it allows you to write in a somewhat fluent manner, more frequently I see it being used like this:
 
-[source, java]
+[source,java]
 ----
 Optional<Integer> optionalInt = getOptional();
 if (optionalInt.isPresent()) {
@@ -18,7 +19,7 @@ if (optionalInt.isPresent()) {
 
 How is it better than this:
 
-[source, java]
+[source,java]
 ----
 Integer regular = getRegular();
 if (regular != null) {
@@ -32,7 +33,8 @@ There are also some annotation-based null checker tools integrated into IDEs lik
 
 Moreover, you probably have one of those already in your project because of some transitive dependencies. You can check it by typing `@Nullable`.
 
-image::nullable.png[Picture 1 - Nullable annotation mess]
+.Nullable annotation mess
+image::nullable.png[Nullable annotation mess]
 
 Here. I don’t even use @Nullable in this project. And there are four different annotation sources that are imported from God knows what dependencies. One of those is deprecated already!
 
@@ -42,10 +44,11 @@ Because it is not about what, it is about where. It is not about null check itse
 
 When I was a kid, I heard a programmer joke from my father:
 
-[qoute, My dad]
-----
+.Programmer joke
+[quote, My dad]
+____
 A programmer always has two glasses on the table: the one with water in case he is thirsty, and the empty one in case he is not.
-----
+____
 
 It’s funny because it’s true.
 
@@ -72,7 +75,8 @@ There are name, secondname, phonenumber fields and some surrogate key. Please al
 
 Let’s have our table filled with the following entries:
 
-image::writers_table.png[Picture 2 - Writers table]
+.Writers table
+image::writers_table.png[Writers table]
 
 As you can see, we can’t fill phone number for Shakespeare, because he lived in the 16th century.
 
@@ -80,7 +84,7 @@ Now, let’s say that we have a business method that gets all writers and sends 
 
 This method could look like the following:
 
-[source, java]
+[source,java]
 ----
 public void sendNotifications() {
     List<Writer> allWriters = writerDao.findAll();
@@ -93,7 +97,7 @@ public void sendNotifications() {
 
 Well, not so bad, this could’ve been worse. Someone could have reused this notificator.sendSms() method on some other writer list and get NullPointerException. He would then introduce an additional check inside the method itself.
 
-[source, java]
+[source,java]
 ----
 public void sendSms(String phonenumber) {
     if (phonenumber != null) {
@@ -110,14 +114,14 @@ The most interesting part in all of that — there would be no need in any of th
 
 Now let’s get back to the source of the data and ask only for entries we can process, entries that make sense in this concrete business case.
 
-[source, slq]
+[source,slq]
 ----
 select * from writers where phonenumber is not null;
 ----
 
 With the DAO method making use of this SELECT statement (let’s call it findWithPhone()) we don’t need any of those null checks! Our method could now look like the following:
 
-[source, java]
+[source,java]
 ----
 public void sendNotifications() {
     List<Writer> writersWithPhone = writerDao.findWithPhone();
