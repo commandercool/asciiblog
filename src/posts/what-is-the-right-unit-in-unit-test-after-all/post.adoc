@@ -2,6 +2,7 @@
 Aleks Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
+:imagedir: ../../images
 
 When I started my fist job as a programmer I was told by my mentor colleague that Unit Tests are my “best friends” and a “safety net”, and that I should not worry much about my code as long as tests are green.
 
@@ -14,7 +15,7 @@ I didn’t know what was wrong because my implementation looked just fine. I sta
 I’ve ended up reverting my changes and adding a simple if…else statement to cover the requirement.
 
 .Most of my refactoring attempts
-image::refactor-meme.jpg[Most of my refactoring attempts]
+image::{imagedir}/refactor-meme.jpg[Most of my refactoring attempts]
 
 That’s how I met Unit Test. I certainly didn’t feel they were friendly, and they weren’t for sure my safety net. All because by that team in that company Unit Tests were used wrong.
 

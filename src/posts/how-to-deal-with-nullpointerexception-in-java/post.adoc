@@ -2,6 +2,7 @@
 Aleks Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
+:imagedir: ../../images
 
 The null-check topic has always been debated over in Java community. https://stackoverflow.com/questions/271526/avoiding-nullpointerexception-in-java[Some suggest avoiding] null at all costs, some share tips on how to deal with it and others even think https://elegantcode.com/2010/05/01/say-no-to-null/[there should be no null value altogether].
 
@@ -34,7 +35,7 @@ There are also some annotation-based null checker tools integrated into IDEs lik
 Moreover, you probably have one of those already in your project because of some transitive dependencies. You can check it by typing `@Nullable`.
 
 .Nullable annotation mess
-image::nullable.png[Nullable annotation mess]
+image::{imagedir}/nullable.png[Nullable annotation mess]
 
 Here. I don’t even use @Nullable in this project. And there are four different annotation sources that are imported from God knows what dependencies. One of those is deprecated already!
 
@@ -76,7 +77,7 @@ There are name, secondname, phonenumber fields and some surrogate key. Please al
 Let’s have our table filled with the following entries:
 
 .Writers table
-image::writers_table.png[Writers table]
+image::{imagedir}/writers_table.png[Writers table]
 
 As you can see, we can’t fill phone number for Shakespeare, because he lived in the 16th century.
 
