@@ -1,0 +1,144 @@
+= How to deal with NullPointerException in Java
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+
+The null-check topic has always been debated over in Java community. https://stackoverflow.com/questions/271526/avoiding-nullpointerexception-in-java[Some suggest avoiding] null at all costs, some share tips on how to deal with it and others even think https://elegantcode.com/2010/05/01/say-no-to-null/[there should be no null value altogether].
+
+Other JVM languages, https://kotlinlang.org/docs/null-safety.html[like Kotlin for instance], have null-safe de-referencing operator and class definitions that should be marked explicitly to support null values.
+
+Starting from Java 8 there are https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html[Optionals]. But even though it allows you to write in a somewhat fluent manner, more frequently I see it being used like this:
+
+[source, java]
+----
+Optional<Integer> optionalInt = getOptional();
+if (optionalInt.isPresent()) {
+    optionalInt.get().toString();
+}
+----
+
+How is it better than this:
+
+[source, java]
+----
+Integer regular = getRegular();
+if (regular != null) {
+    regular.toString();
+}
+----
+
+go figure.
+
+There are also some annotation-based null checker tools integrated into IDEs like IntelliJIDEA and static analysis tools that help with null checks, but that is https://stackoverflow.com/questions/4963300/which-notnull-java-annotation-should-i-use[just a mess].
+
+Moreover, you probably have one of those already in your project because of some transitive dependencies. You can check it by typing `@Nullable`.
+
+image::nullable.png[Picture 1 - Nullable annotation mess]
+
+Here. I don’t even use @Nullable in this project. And there are four different annotation sources that are imported from God knows what dependencies. One of those is deprecated already!
+
+But frankly, in my opinion, all those null-handling features only make things worse. All they aim to deal with continuances of bad design decisions and not with the cause.
+
+Because it is not about what, it is about where. It is not about null check itself, it is about where it is performed.
+
+When I was a kid, I heard a programmer joke from my father:
+
+[qoute, My dad]
+----
+A programmer always has two glasses on the table: the one with water in case he is thirsty, and the empty one in case he is not.
+----
+
+It’s funny because it’s true.
+
+null provides us a great definition of an absence of a value. And it’s not about why some value is null, it’s about why has it came so deep down the stack so that our business logic depends on it. It’s not about why one of the glasses is empty, it’s about why is it on the table in the first place.
+
+If any value in your program can be null and if it could affect program execution flow — this value should be checked right away (upon retrieval from data provider) and flow should not get any further.
+
+Let’s check a simple example.
+
+Say, we have writers table in a database with the following definition:
+
+[source, sql]
+----
+create table writers (
+  id bigint NOT NULL,
+  name character varying(128) NOT NULL,
+  secondname character varying(128) NOT NULL,
+  phonenumber character varying(50),
+  constraint writer_id PRIMARY KEY (id)
+);
+----
+
+There are name, secondname, phonenumber fields and some surrogate key. Please also note that the phone number field is allowed to be null.
+
+Let’s have our table filled with the following entries:
+
+image::writers_table.png[Picture 2 - Writers table]
+
+As you can see, we can’t fill phone number for Shakespeare, because he lived in the 16th century.
+
+Now, let’s say that we have a business method that gets all writers and sends SMS to them about some global writers congress or something.
+
+This method could look like the following:
+
+[source, java]
+----
+public void sendNotifications() {
+    List<Writer> allWriters = writerDao.findAll();
+    allWriters.stream()
+            .map(Writer::getPhoneNumber)
+            .filter(Objects::nonNull)
+            .forEach(number -> notificator.sendSms(number));
+}
+----
+
+Well, not so bad, this could’ve been worse. Someone could have reused this notificator.sendSms() method on some other writer list and get NullPointerException. He would then introduce an additional check inside the method itself.
+
+[source, java]
+----
+public void sendSms(String phonenumber) {
+    if (phonenumber != null) {
+        ...
+    }
+}
+----
+
+Now there are multiple null checks in different places of the same workflow. And you are too afraid to remove any of those because you don’t know all possible flows.
+
+Moreover, you now have to cover all those code execution branches with unit tests, which will force you, even more, to stick with the existing implementation.
+
+The most interesting part in all of that — there would be no need in any of those null checks if we would request our data provider (database in this case) to return only the data that is eligible for processing. Not all writers from the table, but only writers who have their phone number specified. There is no need in drugging around all those empty glasses just to drop them at some point of the program execution.
+
+Now let’s get back to the source of the data and ask only for entries we can process, entries that make sense in this concrete business case.
+
+[source, slq]
+----
+select * from writers where phonenumber is not null;
+----
+
+With the DAO method making use of this SELECT statement (let’s call it findWithPhone()) we don’t need any of those null checks! Our method could now look like the following:
+
+[source, java]
+----
+public void sendNotifications() {
+    List<Writer> writersWithPhone = writerDao.findWithPhone();
+    writersWithPhone.stream()
+            .map(Writer::getPhoneNumber)
+            .forEach(number -> notificator.sendSms(number));
+}
+----
+
+Please also note that there is no more null check in notificator.sendSms() method also. It is not communicating with data provider directly and can safely assume that since execution flow has come up to the point where an SMS should be sent already — there is a valid phone number available.
+
+And the interesting part is that none of the tools mentioned at the beginning of the post would really help us to cover this design flow:
+
+- Optional — we would be forced to wrap phone number in Optional for all entries, even when we know we have a value (the writer entry was just created and we operate in it); moreover, we would be forced to provide another code branch for the case where there is no phone number every time, which doesn’t make any sense (same goes for Kotlin’s ?. operator);
+
+- @Nullable — again, we would be forced to check phone number for null everywhere in the code.
+
+All those tools are dealing with the consequences of the fact that the data provided by the source might not be suitable for our business operation.
+
+So, if you think about it — there is no dilemma about null values. It all comes down to the contract between the data provider and data consumer:
+
+- if you have control over data provider — ask it to return only data that is eligible for processing for that concrete business case;
+
+- if you have no control over it — check the data upon retrieval, do not go any further in your business logic, if the data retrieved can’t be processed.
