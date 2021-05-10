@@ -1,8 +1,8 @@
 = Creation of a telnet Easter egg for your site
 Aleksand Erokhin <erohin_a_v@mail.ru>
-:stylesdir: ../../stylesheets
+:stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
-:imagedir: ../../images
+:imagedir: ../images
 :icons: font
 
 Just recently I’ve came across this magic feature: ASCII animation via telnet. If you are like me and have been living in the woods for the last 20 or so years, just type:

@@ -1,8 +1,8 @@
 = What makes a good manager
 Aleksand Erokhin <erohin_a_v@mail.ru>
-:stylesdir: ../../stylesheets
+:stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
-:imagedir: ../../images
+:imagedir: ../images
 
 HBO Chernobyl series is surely one of the most well done and successful projects of 2019.
 

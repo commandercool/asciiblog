@@ -1,6 +1,6 @@
 = Override build number in your Azure pipeline
-Aleksand Erokhin <erohin_a_v@mail.ru>
-:stylesdir: ../../stylesheets
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 
 If you are using Azure DevOps, the build number is generated for you automatically based on the current date and you end up with something like 20200923.4 (meaning it was a 4th build on 23rd of September). Frankly, this is not very descriptive.

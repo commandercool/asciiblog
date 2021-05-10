@@ -23,10 +23,10 @@ In case you want to contact me - message me in https://www.linkedin.com/in/aleks
 
 == Posts
 
-- link:posts/creation-of-a-telnet-easter-egg-for-your-site/post.html[Creation of a telnet Easter egg for your site] (April 13, 2021)
-- link:posts/why-did-they-use-landlines-to-get-out-of-the-matrix/post.html[Why did they use landlines to get out of the Matrix] (April 10, 2021)
-- link:posts/let-your-project-evolve-naturally/post.html[Let your project evolve naturally] (October 26, 2020)
-- link:posts/what-makes-a-good-manager/post.html[What makes a good manager] (October 2, 2020)
-- link:posts/what-is-the-right-unit-in-unit-test-after-all/post.html[What is the right unit in Unit Test after all] (September 28, 2020)
-- link:posts/override-build-number-in-your-azure-pipeline/post.html[Override build number in your Azure pipeline] (September 23, 2020)
-- link:posts/how-to-deal-with-nullpointerexception-in-java/post.html[How to deal with nullpointerexception in java] (September 20, 2020)
+- link:posts/creation-of-a-telnet-easter-egg-for-your-site.html[Creation of a telnet Easter egg for your site] (April 13, 2021)
+- link:posts/why-did-they-use-landlines-to-get-out-of-the-matrix.html[Why did they use landlines to get out of the Matrix] (April 10, 2021)
+- link:posts/let-your-project-evolve-naturally.html[Let your project evolve naturally] (October 26, 2020)
+- link:posts/what-makes-a-good-manager.html[What makes a good manager] (October 2, 2020)
+- link:posts/what-is-the-right-unit-in-unit-test-after-all.html[What is the right unit in Unit Test after all] (September 28, 2020)
+- link:posts/override-build-number-in-your-azure-pipeline.html[Override build number in your Azure pipeline] (September 23, 2020)
+- link:posts/how-to-deal-with-nullpointerexception-in-java.html[How to deal with nullpointerexception in java] (September 20, 2020)
