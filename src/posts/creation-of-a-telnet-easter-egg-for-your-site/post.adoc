@@ -1,0 +1,136 @@
+= Creation of a telnet Easter egg for your site
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../../images
+
+Just recently I’ve came across this magic feature: ASCII animation via telnet. If you are like me and have been living in the woods for the last 20 or so years, just type:
+
+[source,bash]
+----
+telnet towel.blinkenlights.nl
+----
+
+into your command prompt or terminal and enjoy the show!
+
+.towel.blinkenlights.nl
+image::{imagedir}/starwars.png[towel.blinkenlights.nl]
+
+[NOTE]
+====
+In fact towel.blinkenlights.nl migh not always be available. The whole movie was also uploaded at http://asciimation.co.nz and is available there.
+====
+
+I am very fond of ASCII art, and having whole movie animated and available via telnet got me thrilled! I was so exited, that I’ve started wondering: are there any telnet Easter eggs across the Internet? After checking a couple of well-known web sites (trying to connect with telnet) I found none and was very disappointed (in case you know some – please share with me!).
+
+I’ve found some other sites with animation and games though, but those were not Easter eggs, but rather dedicated resources that geeks know about.
+
+But the absence of such doesn’t mean that I shouldn’t have one! One day slacking on the work got me a neat ASCII animation, check it out:
+
+[source,bash]
+----
+telnet aerokhin.com
+----
+
+I bet you are familiar with the dance! Now that you’ve seen it, let me tell you how I did it.
+
+[NOTE]
+====
+The code for this example is available on github: https://github.com/commandercool/telnet-gif.
+====
+
+== How does telnet work
+
+Let’s refresh briefly on how telnet works in order to be on the same page.
+
+Telnet is a simplest application protocol that runs on top of TCP (port 23 by default). It allows you to connect to the host machine and exchange 7-bit ASCII data. Some of the codes are interpreted as special control characters. These are the characters that allow you to clear terminal and control cursor position needed for displaying animation.
+
+== Preparing an animation
+
+Well, it’s hard to not appreciate an enormous effort of doing the freaking Star Wars movie in ASCII! But doing even a short animation by hand sounds like a very tedious task. I’d rather take an existing gif animation and convert it in ASCII animation.
+
+Gif is essentially a number of images glued together. So if I figure out how to convert a single image – I’d know how to convert an animation.
+
+ASCII images are based on the observation that different symbols have different visible density. Using a http://paulbourke.net/dataformats/asciiart/[density table] one can convert a grayscale image to ASCII art quite easily: you just need to map 255 possible intensities of grayscale to the character ramp you’ve picked.
+
+[source,bash]
+----
+RAMP = {' ', '.', '*', ':', 'o', '&amp;', '8', '#', '@'}
+----
+
+For example, if your character ramp has 9 symbols (like the one above), 255 grayscale range is divided on 9 intervals of approximately 28 shades of grey that map to the same character. In order to get symbol number you have to divide intensity on 28 and get the closest integer.
+
+Overall conversion process is pretty straightforward:
+
+- load a gif;
+- decompose it on images that make up an animation;
+- convert images to grayscale;
+- map grayscale to symbols.
+
+== Serving an animation via telnet
+
+Now that I have an animation sequence prepared, I need to serve it via telnet. As we revisited already – telnet operates over TCP on port 23.
+
+So I open socket on port 23 and accept client connections. Once accepted – they are delegated to a dedicated thread where animation in printed into client’s terminal with the use of streamer:
+
+[source,java]
+----
+ServerSocket serverSocket = new ServerSocket(23);
+while (true) {
+    Socket client = serverSocket.accept();
+    executorService.execute(new ClientStreamer(client));
+}
+----
+
+Animation is printed frame by frame, but in order to prepare a client’s terminal for every next frame we have to reset cursor position to the top left corner, so that frames are printed not one after another, but rather on the same place of the terminal, creating an animation effect.
+
+This is done with the special https://en.wikipedia.org/wiki/ANSI_escape_code[ANSI escape code].
+
+[source,bash]
+----
+printWriter.println("\u001B[1H");
+----
+
+This escape code moves the cursor to the top left corner of the terminal, so that the next frame is printed over a previous one.
+
+After the animation has been running for a couple of circles, I close a connection to a client in order to safe limited amount of resources on the server.
+
+== Try it yourself
+
+If you have docker installed, you can try it yourself. Just pull the image:
+
+[source,bash]
+----
+docker pull alerokhin/telnet-gif
+----
+
+And run it in the following manner:
+
+[source,bash]
+----
+docker run -d -p 23:23 alerokhin/telnet-gif
+----
+
+After it’s started run:
+
+[source,bash]
+----
+telnet localhost
+----
+
+And enjoy the show.
+
+== Implementation details
+
+Despite the application being pretty easy to code, I’ve faced some unexpected difficulties.
+
+First of all, https://docs.oracle.com/javase/8/docs/api/javax/imageio/package-summary.html[javax.imageio utilities] have a bug that fails gif processing. So I had to use GifDecoder from https://github.com/DhyanB/Open-Imaging[Open Imaging].
+
+Second, ANSI escape characters. Initially I was using the character that clears console between two frames:
+
+[source,bash]
+----
+printWriter.println("\u001B[2J")
+----
+
+It makes animation glitch a lot. Most likely there is simply not enough fps for terminal updates. It took me some time to realize that I don’t need to clear the window from the previous test, because I’ll be writing over it anyway.

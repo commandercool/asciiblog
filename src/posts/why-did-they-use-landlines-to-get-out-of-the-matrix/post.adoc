@@ -1,0 +1,39 @@
+= Why did they use landlines to get out of the Matrix
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../../images
+
+Remember https://www.imdb.com/title/tt0133093/[“The Matrix”] where you had to use a landline to get in or out of the Matrix.
+
+I know why they did it this way, just bear with me.
+
+.Escaping the Matrix
+image::{imagedir}/trinity.jpg[Escaping the Matrix]
+
+Rebels were transferring their consciousness back and forth when connecting themselves to the Matrix. Not sure how much is that in Kbits, depends on how conscious you are probably. In any case you need a stable communication channel for that.
+
+Ideally the channel you are looking for should provide the following:
+
+- established connection between communication parties (you don’t want any information to get lost on the way);
+- constant and low delay (you can’t keep this connection open for a long time when you have agents after you);
+- steady bandwidth;
+- information is delivered in the right order (you don’t want your consciousness messed up during the delivery!);
+- transmitters should be simple and available.
+
+You also want this communication channel to be a physical link between two parties for guarantied stability.
+
+.The way out
+image::{imagedir}/phone.png[The way out]
+
+Does any of this sound familiar?
+
+Right, I’ve just described https://en.wikipedia.org/wiki/Circuit_switching[circuit switching] that is used in traditional telephone networks. When you make a call, telephone switches create a physical wire circuit between two phones, which guaranties fixed bandwidth, delays and delivery order. They didn’t pick Internet with https://en.wikipedia.org/wiki/Packet_switching[packet switching] because they wanted to avoid long packet transfer delays, timeouts and packets reordering.
+
+.Packet switching
+image::{imagedir}/packet-switch.png[Packet switching]
+
+It seems also that a landline was considerably harder for agents to track and eavesdrop or interrupt. As you need a physical access either to the circuit being used or one of the phones.
+
+In any case, I believe that it was a solid choice, you just need to be sure that no one is holding the line.
+

@@ -1,0 +1,32 @@
+= Let your project evolve naturally
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../../images
+
+As software developers, we always like to play with the latest and the greatest tools and frameworks. And also we like to apply practices that are considered the best at the moment. But in our daily work most of the time we are limited by the constraints of the current project. More often we have to deal with what we have, because it becomes hard to reason with the project management and persuade them to upgrade something or migrate somewhere.
+
+But that is a whole different story when it comes to our side projects. With no one to restrain us anymore we decide on our tool set. We pick the latest and the greatest to play with. And that is the trap we fall into.
+
+I spoke with a friend of mine recently. He was very exited about his new side project he was working on with another guy for a couple of weeks already. I asked him how it was going so far. And he replied: “It’s going really great! We have a private repository and a virtual machine in a cloud for testing. I’ve already set up CI and CD pipelines that build and deploy our artifact to the cloud. There is still some stuff to automate, but looks pretty good already though. We are also working in OAuth server integration right now.” All that was fun and useful things, but sadly there was nothing much done for the project implementation itself. No PoC was finished yet and put together and only some mocks all around at best.
+
+My friend was sidetracked with tasks that despite being interesting didn’t add much value to his project. And instead of investing his time and effort in the idea he had, he was playing around with some tooling and utilities. And there is no harm in it, if you are not planning on actually working on your project.
+
+But if you are, if the idea you are planning to implement comes first – you should think of your project as a living organism.
+
+Or even better – as a baby.
+
+.Phases of fetus development
+image::{imagedir}/fetus-development.jpg[Phases of fetus development]
+
+Do you know that fetus goes through a lot of phases during it’s development? It also has a biological memory. At some points it goes through very primitive transformations, that are not necessary anymore. Like having gills. All previous living forms went through that phase, so it’s kept as a part of a successful path.
+
+Coming back to the project, if there are only you and your buddy working on it, you don’t really need pipeline with automated builds yet. You should be fine with “gills” right know, when each of you builds the project locally for testing purposes.
+
+When you’ll be ready to deploy a demo version, it’d be nice to have such pipeline in order to have a central place where deployment artifact is produced. But at that point your project will be entering a new phase, where you can remove “gills” and move forward.
+
+In any case, the tooling you will be introducing around you project will be reflecting specific challenges you are facing. There is no need to continuously deliver a project that is blank. Even if there is some logic implemented in it, you don’t need continuous delivery yet. You don’t have users yet, you can pretty much agree on changes you are planning to roll out with you buddy.
+
+Your project will evolve and get this CD pipeline at some point when it will become necessary. And moreover, since at this point your project will become more mature, you’ll know much better what you need to automate. Introduced too soon you CD pipeline will require your attention over and over again with every structural change of the project as it evolves. Set up later on it will already reflect all those changes that were made during the project evolution.
+
+Keep you focus on the idea you are trying to implement and worry about tooling when you face a certain problem that tolling aims to resolve. This way you have way more chances to actually build something, rather than just play around with some tools until it’s not fun anymore.

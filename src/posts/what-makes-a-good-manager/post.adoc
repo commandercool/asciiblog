@@ -1,0 +1,56 @@
+= What makes a good manager
+Aleks Erokhin <erohin_a_v@mail.ru>
+:stylesdir: ../../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../../images
+
+HBO Chernobyl series is surely one of the most well done and successful projects of 2019.
+
+When I was first watching the series, it hit me that there are a lot of bad and good situation management examples depicted. I don’t want to concentrate on bad management examples for now, but rather on a good one. There is a scene where https://www.imdb.com/title/tt7366338/characters/nm0364813?ref_=tt_cl_t2[Legasov] (L) and https://www.imdb.com/title/tt7366338/characters/nm0001745?ref_=tt_cl_t3[Shcherbina] (S) are deciding how the fire should be put down:
+
+[quote,HBO Chernobyl series]
+____
+    S: How do we put it out?
+    L: Boron. Boron and sand.
+    S: How much sand and boron?
+    L: Five thousand tons. And obviously, we’re going to need to evacuate an enormous area…
+    S: Never mind that. Focus on the fire.
+    L: I am focusing on the fire.
+    …
+    The discussion goes on, Shcherbina turns around and walks away
+    …
+    L: Where are you going?
+    S: I’m going to get you 5,000 tons of sand and boron.
+____
+
+.Image source - https://metro.co.uk/2019/05/23/chernobyl-cast-next-real-life-characters-true-story-behind-disaster-9672304/[metro.co.uk]
+image::{imagedir}/chernobyl.jpeg[Chernobyl HBO]
+
+This dialog is a great crisis management example, and Shcherbina is shown as a great manager. Here are the points that I really like in the situation handling approach shown.
+
+== 1. Go for the resource estimation
+
+To be able to handle any situation correctly you need to have a clear understanding of the resources required to do so. Resources could mean time, working hours, money or sand. If you don’t have sufficient resources ready — there is no way to handle the situation correctly.
+
+So Shcherbina asks the expert for this estimation. If we are talking about software development project — a team lead or a lead developer takes the role of an expert. He is the person who has an expertise and can provide those estimations. They should not (and could not) be always precise. But they are close enough to get a planning of it.
+
+== 2. Stay on the topic
+
+When Legasov starts talking about evacuation, Shcherbina brings him back to the original topic. I don’t want to go into ethical side of this concrete scene. I just want to talk about a pattern applied during this crisis situation. Shcherbina goes step by step and keeps Legasov’s head where he needs it the most — on a nuclear expertise. After all — Legasov is the expert in this area, and this is the expertise required from him right now.
+
+The ability to decompose a problem and concentrate on solutions for each part of it is a very valuable skill.
+
+== 3. Act based on the expertise
+
+Once Shcherbina has his expertise he goes to get 5,000 tons of sand and boron. He is not bargaining about the amount of resources and he is not questioning the methods. He has got the expertise and he acts on it.
+
+He is doing manager’s job managing required resources to do the task.
+
+'''
+
+Checking this dialog I see so many ways for it to go wrong. And Shcherbina ending up arguing with Legasov over something, getting off the topic.
+
+Remember all those meetings you had where the agenda was not clear or point was missed during the discussion? Or there simply was no expertise on one of the topics? Unfortunately it happens way too often. And for me it’s a marker that managers are failing their job.
+
+Goal orientation and wise resource management — that is in my opinion what makes a good manager.
+
