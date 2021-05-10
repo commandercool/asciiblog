@@ -7,7 +7,7 @@ TODO write stuff here
 
 == Posts
 
-- link:post/creation-of-a-telnet-easter-egg-for-your-site/post.html[Creation of a telnet Easter egg for your site]
+- link:posts/creation-of-a-telnet-easter-egg-for-your-site/post.html[Creation of a telnet Easter egg for your site]
 - link:posts/why-did-they-use-landlines-to-get-out-of-the-matrix/post.html[Why did they use landlines to get out of the Matrix]
 - link:posts/let-your-project-evolve-naturally/post.html[Let your project evolve naturally]
 - link:posts/what-makes-a-good-manager/post.html[What makes a good manager]
