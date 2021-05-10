@@ -1,5 +1,5 @@
 = Why did they use landlines to get out of the Matrix
-Aleks Erokhin <erohin_a_v@mail.ru>
+Aleksand Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../../images

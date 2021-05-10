@@ -1,5 +1,5 @@
 = What is the right unit in Unit Test after all
-Aleks Erokhin <erohin_a_v@mail.ru>
+Aleksand Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../../images
