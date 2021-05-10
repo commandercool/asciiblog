@@ -17,7 +17,7 @@ image::{imagedir}/about.jpg[aleks,200,align="center"]
 
 Hello, my name is Aleksandr Erokhin and I am a Java developer from Saint-Peterburg, Russia. 👋
 
-Welcome to my personal page where I sometimes post my various though on prgramming, management in software developmenet and similar kind of stuff.
+Welcome to my personal page where I stare at you intensively and sometimes post my various though on prgramming, management in software developmenet and similar kind of stuff.
 
 In case you want to contact me - message me in https://www.linkedin.com/in/aleksandr-erokhin/[linked.in].
 
