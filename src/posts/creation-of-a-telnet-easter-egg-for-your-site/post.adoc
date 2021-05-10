@@ -3,6 +3,7 @@ Aleksand Erokhin <erohin_a_v@mail.ru>
 :stylesdir: ../../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../../images
+:icons: font
 
 Just recently I’ve came across this magic feature: ASCII animation via telnet. If you are like me and have been living in the woods for the last 20 or so years, just type:
 
@@ -16,10 +17,7 @@ into your command prompt or terminal and enjoy the show!
 .towel.blinkenlights.nl
 image::{imagedir}/starwars.png[towel.blinkenlights.nl]
 
-[NOTE]
-====
-In fact towel.blinkenlights.nl migh not always be available. The whole movie was also uploaded at http://asciimation.co.nz and is available there.
-====
+NOTE: In fact towel.blinkenlights.nl migh not always be available. The whole movie was also uploaded at http://asciimation.co.nz and is available there.
 
 I am very fond of ASCII art, and having whole movie animated and available via telnet got me thrilled! I was so exited, that I’ve started wondering: are there any telnet Easter eggs across the Internet? After checking a couple of well-known web sites (trying to connect with telnet) I found none and was very disappointed (in case you know some – please share with me!).
 
