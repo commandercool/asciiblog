@@ -1,5 +1,5 @@
 = What makes a good manager
-Aleksand Erokhin <erohin_a_v@mail.ru>
+Aleksand Erokhin <http://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
@@ -42,11 +42,11 @@ This dialog is a great crisis management example, and Shcherbina is shown as a g
 
 To be able to handle any situation correctly you need to have a clear understanding of the resources required to do so. Resources could mean time, working hours, money or sand. If you don’t have sufficient resources ready — there is no way to handle the situation correctly.
 
-So Shcherbina asks the expert for this estimation. If we are talking about software development project — a team lead or a lead developer takes the role of an expert. He is the person who has an expertise and can provide those estimations. They should not (and could not) be always precise. But they are close enough to get a planning of it.
+So Shcherbina asks the expert for this estimation. If we are talking about software development project — a team lead or a lead developer takes the role of such expert. He is the person who has the expertise and can provide these estimations. They should not (and could not) be always precise. But they are close enough to get a planning of it.
 
 == 2. Stay on the topic
 
-When Legasov starts talking about evacuation, Shcherbina brings him back to the original topic. I don’t want to go into ethical side of this concrete scene. I just want to talk about a pattern applied during this crisis situation. Shcherbina goes step by step and keeps Legasov’s head where he needs it the most — on a nuclear expertise. After all — Legasov is the expert in this area, and this is the expertise required from him right now.
+When Legasov starts talking about evacuation, Shcherbina brings him back to the original topic. I don’t want to go into the ethical side of this specific scene. I just want to talk about a pattern applied during this crisis situation. Shcherbina goes step by step and keeps Legasov’s head where he needs it the most — on a nuclear expertise. After all — Legasov is the expert in this area, and this is the expertise required from him right now.
 
 The ability to decompose a problem and concentrate on solutions for each part of it is a very valuable skill.
 
@@ -60,7 +60,6 @@ He is doing manager’s job managing required resources to do the task.
 
 Checking this dialog I see so many ways for it to go wrong. And Shcherbina ending up arguing with Legasov over something, getting off the topic.
 
-Remember all those meetings you had where the agenda was not clear or point was missed during the discussion? Or there simply was no expertise on one of the topics? Unfortunately it happens way too often. And for me it’s a marker that managers are failing their job.
+Remember all those meetings you had where the agenda was not clear or point was missed during the discussion? Or there simply was no expertise on one of the topics? Unfortunately it happens way too often.
 
 Goal orientation and wise resource management — that is in my opinion what makes a good manager.
-

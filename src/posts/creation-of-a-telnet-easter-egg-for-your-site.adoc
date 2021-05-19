@@ -1,5 +1,5 @@
 = Creation of a telnet Easter egg for your site
-Aleksand Erokhin <erohin_a_v@mail.ru>
+Aleksand Erokhin <http://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
