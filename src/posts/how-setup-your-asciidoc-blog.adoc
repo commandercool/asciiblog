@@ -1,0 +1,105 @@
+= How to setup your asciidoc blog
+Aleksand Erokhin <http://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+
+My fist ever blog posts were published on https://medium.com/[medium]. It was fine in the beginning, but soon I started to get annoyed by certain things there. Like there is no way to include a code block on a page. You have to create a bunch of https://docs.github.com/en/github/writing-on-github/editing-and-sharing-content-with-gists/creating-gists[gists] and link them. You can't backup your stories, your replies are also stories, you can't personalize your posts much. And paywall they have there is stupid.
+
+So I've switched to https://wordpress.org/download/[wordpress] hosted in https://aws.amazon.com/[aws]. Which was also fine for a while. But eventually it felt like it has lots of features I don't need (like user registration and comments which are mostly used by spammers) and lacks features I need (simple backups and tracking changes in a version controll'y style).
+
+That's when I decided to run a blog in asciidoc! Thas was a perfect fit for me. I've seen it a couple of times across the internet but has never considered to do a setup by myself. In fact, you are reading this post in my new asciiblog.
+
+== What is asciidoc
+
+https://asciidoc.org/[AsciiDoc] is a text document format for writing notes, documentation, articles, books, ebooks, slideshows, web pages, man pages and blogs. AsciiDoc files can be translated to many formats including HTML, PDF, EPUB, man page.
+
+Or to put it another way - asciidoc is a markup language that could be used to generate all sorts of static pages.
+
+For example you just open up a plain text file with .adoc extension and write the following:
+
+[source]
+----
+[NOTE]
+====
+Here is why I like asciidoc:
+
+* text based;
+* generates lightweight HTML5 pages;
+* supports styling and customization.
+====
+----
+
+Put it through asciidoc processor and receive the following render:
+
+[NOTE]
+====
+Here is why I like asciidoc:
+
+* text based;
+* generates lightweight HTML5 pages;
+* supports styling and customization.
+====
+
+Pretty cool! It has a reach set of capabilities, so if you are interested already, chech out the https://docs.asciidoctor.org/asciidoc/latest/[markup documentation].
+
+== Setup idea
+
+=== Problems to solve
+
+So I've picked a markup language. But I have some other problems to solve before I can actually post my markup files.
+
+Fist, they have to be stored somewhere. Ideally - not locally. Because in that case loosing your local copy would mean loosing all your posts.
+
+I could store it somewhere in the cloud, but since my posts are now just plain text files, I can use a cvs like github. It will host my files, make it accessible from anywhere and provide version control for them to easily track changes.
+
+One down.
+
+Second, I need to render html pages from adoc files. That is an easy one. https://asciidoctor.org/[Asciidoctor] does just that and could be installed on any operating system.
+
+Another down.
+
+Last, I need to serve my pages. Any web server could handle such an easy tasks. I picked nginx because I had some experience with it already.
+
+Last one down!
+
+=== Add a bit of Docker
+
+While you can setup each tool anywhere and might become hard to manage and distribute you setup (when migrating from one cloud hosting to another). You'd need to reconfigure it every time from scratch.
+
+So I decided to use https://www.docker.com/[Docker]. Because once you've setup docker - you've setup everything. If you don't know what Docker is - it's a container orchestrator. Using it, you'd need to setup a container once and you can take it with you anywhere you go.
+
+=== Final setup
+
+To sum everything up, my setup goes as follows:
+
+1. Docker.
+First install docker. Get images for https://hub.docker.com/r/asciidoctor/docker-asciidoctor/[asciidoctor] and https://hub.docker.com/_/nginx[nginx]. This way you don't need to install them neither locally nor on host.
+
+2. Github.
+Setup a https://github.com/[github] repo where you are going to store your posts.
+
+That's it! Well, not entirely. You need to make these docker images work for you. I've set up two stage docker build process: first step renders my .adoc files, and second one copies them to nginx container to serve. Here is how it goes:
+
+[source,docker]
+----
+FROM asciidoctor/docker-asciidoctor:1.6.1
+WORKDIR /blog
+COPY . .
+RUN asciidoctor -R src -D target '**/*.adoc'
+
+FROM nginx:1.20.0-alpine
+COPY --from=0 /blog/target /usr/share/nginx/html
+COPY --from=0 /blog/src/images /usr/share/nginx/html/images
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+----
+
+== Running blog
+
+In oder to run your blog anywhere where docker is installed, you just do the following:
+
+* clone your repo;
+* build the docker image;
+* start it up with port 80 exposed.
