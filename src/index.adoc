@@ -15,11 +15,11 @@ img {
 
 image::{imagedir}/about.jpg[aleks,200,align="center"]
 
-Hello, my name is Aleksandr Erokhin and I am a Java developer from Saint-Peterburg, Russia. 👋
+Hello, my name is Aleksandr Erokhin and I am a Java developer from Saint-Petersburg, Russia. 👋
 
-Welcome to my personal page where I stare at you intensively and sometimes post my though on prgramming, management in software developmenet and similar kind of stuff.
+Welcome to my personal page where I stare at you intensively and sometimes post my though on programming, management in software development and similar kind of stuff.
 
-Feel free to contant me via https://www.linkedin.com/in/aleksandr-erokhin/[linked.in] or mailto:erohin_a_v@mail.ru[email].
+Feel free to contact me via https://www.linkedin.com/in/aleksandr-erokhin/[linked.in] or mailto:erohin_a_v@mail.ru[email].
 
 == Posts
 
