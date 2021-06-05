@@ -1,5 +1,5 @@
 = What makes a good manager
-Aleksand Erokhin <http://aerokhin.com>
+Aleksand Erokhin <aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images

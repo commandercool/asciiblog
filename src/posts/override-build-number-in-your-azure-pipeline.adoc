@@ -1,5 +1,5 @@
 = Override build number in your Azure pipeline
-Aleks Erokhin <http://aerokhin.com>
+Aleks Erokhin <aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 
