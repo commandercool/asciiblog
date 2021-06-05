@@ -1,5 +1,5 @@
 = How to deal with NullPointerException in Java
-Aleks Erokhin <aerokhin.com>
+Aleks Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
