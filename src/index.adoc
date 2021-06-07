@@ -23,6 +23,7 @@ Feel free to contact me via https://www.linkedin.com/in/aleksandr-erokhin/[linke
 
 == Posts
 
+- link:posts/how-setup-your-asciidoc-blog.html[How to setup your asciidoc blog] (June 7, 2021)
 - link:posts/creation-of-a-telnet-easter-egg-for-your-site.html[Creation of a telnet Easter egg for your site] (April 13, 2021)
 - link:posts/why-did-they-use-landlines-to-get-out-of-the-matrix.html[Why did they use landlines to get out of the Matrix] (April 10, 2021)
 - link:posts/let-your-project-evolve-naturally.html[Let your project evolve naturally] (October 26, 2020)
