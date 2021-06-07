@@ -7,13 +7,15 @@ Aleksand Erokhin <https://aerokhin.com>
 
 -- beauty in simplicity
 
+image::{imagedir}/blog-stack.png[Blog stack]
+
 My fist ever blog posts were published on https://medium.com/[medium]. It was fine in the beginning, but soon I started to get annoyed by certain things there. Like there is no way to include a code block on a page. You have to create a bunch of https://docs.github.com/en/github/writing-on-github/editing-and-sharing-content-with-gists/creating-gists[gists] and link them. You can't backup or export your stories, your replies are also stories, you can't personalize your posts much. And paywall they have there is stupid.
 
-So I've switched to https://wordpress.org/download/[wordpress] hosted in https://aws.amazon.com/[aws]. Which was also fine for a while. But eventually it felt like it has lots of features I don't need (like user registration and comments which are mostly used by spammers) and lacks features I need (simple backups and tracking changes in a version controll'y style).
+So I've switched to https://wordpress.org/download/[wordpress] hosted in https://aws.amazon.com/[aws]. Which was also fine for a while. But eventually it felt like it has lots of features I don't need (like user registration and comments, which are mostly used by spammers) and lacks features I need (simple backups and tracking changes in a version controll'y style).
 
-That's when I decided to run a blog in asciidoc! That was a perfect fit for me. I've seen it a couple of times across the internet but has never considered to do a setup by myself until now.
+That's when I decided to run a blog in asciidoc. That was a perfect fit for me! I've seen it a couple of times across the internet but has never considered to do a setup by myself until now.
 
-In fact, you are reading this post in my new asciiblog.
+In fact, you are reading this post in my new asciiblog!
 
 == What is asciidoc
 
@@ -21,7 +23,7 @@ https://asciidoc.org/[AsciiDoc] is a text document format for writing notes, doc
 
 Or to put it another way - asciidoc is a markup language that could be used to generate all sorts of static pages.
 
-For example you just open up a plain text file with .adoc extension and write the following:
+For example you just open up a plain text file with `.adoc` extension and write the following:
 
 [source]
 ----
@@ -56,15 +58,15 @@ So I've picked a markup language. But I have some other problems to solve before
 
 Fist, they have to be stored somewhere. Ideally - not locally. Because in that case loosing your local copy would mean loosing all your posts.
 
-I could store it somewhere in the cloud, but since my posts are now just plain text files, I can use a cvs like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them to easily track changes.
+I could store it somewhere in the cloud, but since my posts are now just plain text files, I can use a cvs like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them to easily track changes. I also can use branches to start new blog posts and keep my published version of the blog in the `master` branch.
 
 First one down.
 
-Second, I need to render html pages from adoc files. That is an easy one. https://asciidoctor.org/[Asciidoctor] does just that and could be installed on any operating system.
+Second, I need to render html pages from `.adoc` files. That is an easy one. https://asciidoctor.org/[Asciidoctor] does just that and could be installed on any operating system.
 
 Another down.
 
-Last but not least, I need to serve my pages. Any web server could handle such an easy task. I picked nginx because I had some experience with it already.
+Last but not least, I need to serve my pages. Any web server could handle such an easy task. I picked https://nginx.org/[nginx] because I had some experience with it already and it's super easy to setup.
 
 Last one down!
 
@@ -72,7 +74,7 @@ Last one down!
 
 My current setup is the following.
 
-I have Ubuntu 20.04 running on https://aws.amazon.com/ec2/?ec2-whats-new.sort-by=item.additionalFields.postDateTime&ec2-whats-new.sort-order=desc[aws ec2 instance]. It has https://nginx.org/[nginx] installed with https://certbot.eff.org/[certbot] used to acquire a Let's encrypt certificate.
+I have Ubuntu 20.04 running on https://aws.amazon.com/ec2/?ec2-whats-new.sort-by=item.additionalFields.postDateTime&ec2-whats-new.sort-order=desc[aws ec2 instance]. It has https://nginx.org/[nginx] installed with https://certbot.eff.org/[certbot] used to acquire a https://letsencrypt.org/[Let's encrypt certificate].
 
 My sources for the blog are located in https://github.com/commandercool/asciiblog[github public repository].
 
@@ -82,4 +84,42 @@ And finally I have https://asciidoctor.org/[aciidoctor] installed on my local ma
 
 When I have an idea for a new blog post - I start writing it in plain text in one of new `.adoc` files in the posts folder. I check in my changes to track progress and render the page locally from time to time to see what I am getting so far.
 
-As soon as I feel that it's ready to be posted - I render the page locally and run `rsync` command in order to synchronize my local render with the one I have in AWS.
+As soon as I feel that it's ready to be posted - I render the page locally and run https://linux.die.net/man/1/rsync[rsync] command in order to synchronize my local render with the one I have in AWS.
+
+In order to automate this manual work I've created two scripts. Fist one just build a local copy of the blog:
+
+[source]
+----
+#!/bin/bash
+
+asciidoctor -R src -D target '**/*.adoc' && \
+cp -r src/images target/images
+----
+
+Second one builds and deploys my blog in aws:
+
+[source]
+----
+#!/bin/bash
+
+asciidoctor -R src -D target '**/*.adoc' && \
+rsync -av -e "ssh -l ubuntu" src/images blog:/var/www/html && \
+rsync -av -e "ssh -l ubuntu" target/ blog:/var/www/html
+----
+
+Note the use of `rsync` here. I am running it over ssh. For that I've aded the following to my .ssg/config file:
+
+[source]
+----
+Host blog
+  Hostname <my-aws-hostname>.compute.amazonaws.com
+  IdentityFile <path to my pem file>
+----
+
+This way I can push my deploy script to the github without any worries of exposing any info about my aws instance.
+
+== Conclusion
+
+Overall I am very happy with the setup! It combines the ease of user and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and sill feel like it's to much for it. You should be able easily run this setup in a free tier instance for a year.
+
+On top of that, there is one thing that I haven't mentioned in the post - customization. You can either play around with stylesheets yourself, or use one of the https://github.com/darshandsoni/asciidoctor-skins[community themes available]. I am currently running the one that mimics github style.
