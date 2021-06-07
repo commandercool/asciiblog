@@ -120,6 +120,6 @@ This way I can push my deploy script to the github without any worries of exposi
 
 == Conclusion
 
-Overall I am very happy with the setup! It combines the ease of user and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and sill feel like it's to much for it. You should be able easily run this setup in a free tier instance for a year.
+Overall I am very happy with the setup! It combines the ease of user and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and still feel like it's to much for it. You should be able easily run this setup in a free tier instance for a year.
 
 On top of that, there is one thing that I haven't mentioned in the post - customization. You can either play around with stylesheets yourself, or use one of the https://github.com/darshandsoni/asciidoctor-skins[community themes available]. I am currently running the one that mimics github style.
