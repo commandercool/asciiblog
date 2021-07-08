@@ -1,0 +1,67 @@
+= Dealing with certificates in Java
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+
+== Intro
+
+While dealing with https communication in Java applications you might face the following error:
+
+[source,bash]
+----
+PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target; nested exception is javax.net.ssl.SSLHandshakeException
+----
+
+While this error might happen for a number of reasons, here I'll describe the ones I've faced most often along with methods and tools that are helpful during debugging.
+
+[NOTE]
+====
+Please note that this post is not intended to have a general discussion about SSL Certificates and does not try to cover all sorts of problems you might face with them. It's just a good starting point with some suggestions, so you could poke around and hopefully find out the case of your issue easily.
+====
+
+== Invalid certificate chain
+
+Firstly, not all issues might be coming from your side. Sometimes it's a sever configuration that is faulty. One of such server configuration issues is - invalid certificate chain. It happens when a server only provides it's certificate without intermediate one, that links the server certificate with a Root CA added to the trust store. While most modern browsers handle this problem by fetching intermediate certificates themselves, Java doesn't.
+
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Chain_Of_Trust.svg/1600px-Chain_Of_Trust.svg.png[Certificate Chain, Source Wikipedia]
+
+In order to check whether some server has a valid certificate chain you can use https://whatsmychaincert.com/[What's My Chain Cert?] . It also completes the chain if it's invalid and allows to download valid public certificate.
+
+=== Checking chain with command line tools
+
+In case you can't check a server certificate with https://whatsmychaincert.com/[What's My Chain Cert?] (because it's not available from the internet for example), you can use the powerful command line tool called https://www.openssl.org/[opnessl].
+
+Just run:
+
+[source,bash]
+----
+openssl s_client -connect google.com:443 -servername google.com
+CONNECTED(00000006)
+depth=2 OU = GlobalSign Root CA - R2, O = GlobalSign, CN = GlobalSign
+verify return:1
+depth=1 C = US, O = Google Trust Services, CN = GTS CA 1O1
+verify return:1
+depth=0 C = US, ST = California, L = Mountain View, O = Google LLC, CN = *.google.com
+verify return:1
+---
+Certificate chain
+ 0 s:/C=US/ST=California/L=Mountain View/O=Google LLC/CN=*.google.com
+   i:/C=US/O=Google Trust Services/CN=GTS CA 1O1
+ 1 s:/C=US/O=Google Trust Services/CN=GTS CA 1O1
+   i:/OU=GlobalSign Root CA - R2/O=GlobalSign/CN=GlobalSign
+---
+----
+
+And check `Certificate chain` part. It should go up till the Root CA.
+
+In case it's not - you have two options: either contact service responsible and ask him to fix the certificate chain, or add intermediate CA to the trust store.
+
+== Adding certificate to the trust store
+
+TODO
+
+== Verifying Java trust store
+
+TODO
