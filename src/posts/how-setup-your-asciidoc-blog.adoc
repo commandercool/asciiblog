@@ -13,7 +13,7 @@ My fist ever blog posts were published on https://medium.com/[medium]. It was fi
 
 So I've switched to https://wordpress.org/download/[wordpress] hosted in https://aws.amazon.com/[aws]. Which was also fine for a while. But eventually it felt like it has lots of features I don't need (like user registration and comments, which are mostly used by spammers) and lacks features I need (simple backups and tracking changes in a version controll'y style).
 
-That's when I decided to run a blog in asciidoc. That was a perfect fit for me! I've seen it a couple of times across the internet but has never considered to do a setup by myself until now.
+That's when I decided to run a blog in asciidoc. That was a perfect fit for me! I've seen it a couple of times across the internet but have never considered to do a setup by myself until now.
 
 In fact, you are reading this post in my new asciiblog!
 
@@ -58,7 +58,7 @@ So I've picked a markup language. But I have some other problems to solve before
 
 Fist, they have to be stored somewhere. Ideally - not locally. Because in that case loosing your local copy would mean loosing all your posts.
 
-I could store it somewhere in the cloud, but since my posts are now just plain text files, I can use a cvs like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them to easily track changes. I also can use branches to start new blog posts and keep my published version of the blog in the `master` branch.
+I could store it somewhere in some cloud, but since my posts are now just plain text files, I can use a cvs like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them, making it easy to track changes. I also can use branches to start new blog posts and keep my published version of the blog in the `master` branch.
 
 First one down.
 
@@ -82,7 +82,7 @@ And finally I have https://asciidoctor.org/[aciidoctor] installed on my local ma
 
 === Posting to the blog
 
-When I have an idea for a new blog post - I start writing it in plain text in one of new `.adoc` files in the posts folder. I check in my changes to track progress and render the page locally from time to time to see what I am getting so far.
+When I have an idea for a new blog post - I start writing it in plain text in one of new `.adoc` files in the `posts` folder. I check in my changes to track progress and render the page locally from time to time to see what I am getting so far.
 
 As soon as I feel that it's ready to be posted - I render the page locally and run https://linux.die.net/man/1/rsync[rsync] command in order to synchronize my local render with the one I have in aws.
 
@@ -96,15 +96,15 @@ asciidoctor -R src -D target '**/*.adoc' && \
 cp -r src/images target/images
 ----
 
-Second one builds and deploys my blog in aws:
+One thing to note here is that I need to take care of static content and move copy it along with generated pages with `cp -r src/images target/images`.Second one builds and deploys my blog in aws:
 
 [source]
 ----
 #!/bin/bash
 
 asciidoctor -R src -D target '**/*.adoc' && \
-rsync -av -e "ssh -l ubuntu" src/images blog:/var/www/html && \
-rsync -av -e "ssh -l ubuntu" target/ blog:/var/www/html
+rsync -av -e "ssh -l blog" src/images blog:/var/www/html && \
+rsync -av -e "ssh -l blog" target/ blog:/var/www/html
 ----
 
 Note the use of `rsync` here. I am running it over ssh. For that I've aded the following to my .ssg/config file:
@@ -118,8 +118,10 @@ Host blog
 
 This way I can push my deploy script to the github without any worries of exposing any info about my aws instance.
 
+If you are not working on Linux/Unix - the whole process could be done on your VPS. Just clone the repo, render posts with asciidoctor and copy rendered pages to `/var/www/html` for nginx to serve them.
+
 == Conclusion
 
-Overall I am very happy with the setup! It combines the ease of user and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and still feel like it's to much for it. You should be able easily run this setup in a free tier instance for a year.
+Overall I am very happy with the setup! It combines the ease of use and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and still feel like it's to much for it (I am thinking about getting static IP from my IPS, installing Ubuntu on my old laptop and running blog on it). You should be able easily run this setup in a free tier instance for a year.
 
 On top of that, there is one thing that I haven't mentioned in the post - customization. You can either play around with stylesheets yourself, or use one of the https://github.com/darshandsoni/asciidoctor-skins[community themes available]. I am currently running the one that mimics github style.
