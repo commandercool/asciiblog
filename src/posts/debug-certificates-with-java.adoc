@@ -38,6 +38,7 @@ Just run:
 [source,bash]
 ----
 openssl s_client -connect google.com:443 -servername google.com
+
 CONNECTED(00000006)
 depth=2 OU = GlobalSign Root CA - R2, O = GlobalSign, CN = GlobalSign
 verify return:1
@@ -60,8 +61,50 @@ In case it's not - you have two options: either contact service responsible and 
 
 == Adding certificate to the trust store
 
-TODO
+Sometimes service you need to consume might use self-signed certificates, or certificates that are signed by some CA that is not trusted by Java (https://stackoverflow.com/questions/34110426/does-java-support-lets-encrypt-certificates[e.g. older versions of Java do not trust Let's Encrypt certificates]).
+
+You can check the list of the trusted certificate issuers by running:
+
+[source,bash]
+----
+keytool -list -cacerts -storepass changeit
+
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 137 entries
+
+aaacertificateservices, May 12, 2021, trustedCertEntry,
+Certificate fingerprint (SHA-256): D7:A7:A0:FB:5D:7E:27:31:D7:71:E9:48:4E:BC:DE:F7:1D:5F:0C:3E:0A:29:48:78:2B:C8:3E:E0:EA:69:9E:F4
+accvraiz1, May 12, 2021, trustedCertEntry,
+Certificate fingerprint (SHA-256): 9A:6E:C0:12:E1:A7:DA:9D:BE:34:19:4D:47:8A:D7:C0:DB:18:22:FB:07:1D:F1:29:81:49:6E:D1:04:38:41:13
+...
+----
+
+`openjdk version "11.0.11" 2021-04-20` yields 137 entries.
 
 == Verifying Java trust store
 
-TODO
+In order to verify that you have your trust store configured as expected - you need to issues a test request to a service via secure connection. While you could simply spin up you application and see, it's not always convenient or safe.
+
+A better approach would be to spin up a small utility with the same set of JVM options and verify the connection only. I'll use https://github.com/commandercool/ssl-check[ssl-check]. It simply creates a secure socket and initializes SSL Handshake process with a specified host.
+
+In order to run it - go to the machine where you have Java trust store configured or get an interactive shell inside a container that is going to run your application, download and compile https://github.com/commandercool/ssl-check[ssl-check]:
+
+[source,bash]
+----
+wget https://raw.githubusercontent.com/commandercool/ssl-check/master/src/SSLCheck.java
+javac SSLCheck.java
+----
+
+Now start it, providing host info:
+
+[source,bash]
+----
+java -cp . SSLCheck google.com 443
+
+About to connect to 'google.com' on port 443
+Successfully connected
+----
+
+In case everything is configured right - you should see `Successfully connected` message. This means that you are set and good to go with your application!
