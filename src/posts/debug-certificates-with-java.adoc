@@ -37,7 +37,7 @@ Just run:
 
 [source,bash]
 ----
-openssl s_client -connect google.com:443 -servername google.com
+echo -n | openssl s_client -connect google.com:443 -servername google.com
 
 CONNECTED(00000006)
 depth=2 OU = GlobalSign Root CA - R2, O = GlobalSign, CN = GlobalSign
@@ -59,7 +59,7 @@ And check `Certificate chain` part. It should go up till the Root CA.
 
 In case it's not - you have two options: either contact service responsible and ask him to fix the certificate chain, or add intermediate CA to the trust store.
 
-== Adding certificate to the trust store
+== Adding a certificate to the trust store
 
 Sometimes service you need to consume might use self-signed certificates, or certificates that are signed by some CA that is not trusted by Java (https://stackoverflow.com/questions/34110426/does-java-support-lets-encrypt-certificates[e.g. older versions of Java do not trust Let's Encrypt certificates]).
 
@@ -83,9 +83,31 @@ Certificate fingerprint (SHA-256): 9A:6E:C0:12:E1:A7:DA:9D:BE:34:19:4D:47:8A:D7:
 
 `openjdk version "11.0.11" 2021-04-20` yields 137 entries.
 
+[NOTE]
+====
+Please note the password after `-storepass` parameter. `changeit` is the default value.
+====
+
+In case a server certificate is signed by CA that is not trusted - you need to add it to the trust store manually. To do so you first need to download the certificate:
+
+[source,bash]
+----
+echo -n | openssl s_client -connect google.com:443 \
+    | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > server.crt;
+----
+
+And then import it into the Java trust store:
+
+[source,bash]
+----
+keytool -import -cacerts -alias server -file server.crt -storepass changeit -noprompt
+
+Certificate was added to keystore
+----
+
 == Verifying Java trust store
 
-In order to verify that you have your trust store configured as expected - you need to issues a test request to a service via secure connection. While you could simply spin up you application and see, it's not always convenient or safe.
+In order to verify that you have your trust store configured as expected - you need to issue a test request to a service via secure connection. While you could simply spin up you application and see, it's not always convenient or safe.
 
 A better approach would be to spin up a small utility with the same set of JVM options and verify the connection only. I'll use https://github.com/commandercool/ssl-check[ssl-check]. It simply creates a secure socket and initializes SSL Handshake process with a specified host.
 
