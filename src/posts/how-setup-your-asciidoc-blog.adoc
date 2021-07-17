@@ -19,7 +19,7 @@ In fact, you are reading this post in my new asciiblog!
 
 == What is asciidoc
 
-https://asciidoc.org/[AsciiDoc] is a text document format for writing notes, documentation, articles, books, ebooks, slideshows, web pages, man pages and blogs. AsciiDoc files can be translated to many formats including HTML, PDF, EPUB, man page.
+https://asciidoc.org/[AsciiDoc] is a text document format for writing notes, documentation, articles and so on. AsciiDoc files can be translated to many formats including HTML, PDF and EPUB.
 
 Or to put it another way - asciidoc is a markup language that could be used to generate all sorts of static pages.
 
@@ -37,7 +37,7 @@ Here is why I like asciidoc:
 ====
 ----
 
-Put it through asciidoc processor and receive the following render:
+Put it through asciidoc processor and receive the following output:
 
 [NOTE]
 ====
@@ -56,9 +56,9 @@ Pretty cool! It has a reach set of capabilities, so if you are interested alread
 
 So I've picked a markup language. But I have some other problems to solve before I can actually post my markup files.
 
-Fist, they have to be stored somewhere. Ideally - not locally. Because in that case loosing your local copy would mean loosing all your posts.
+First, they have to be stored somewhere. Ideally - not locally. Because in that case loosing your local copy would mean loosing all your posts.
 
-I could store it somewhere in some cloud, but since my posts are now just plain text files, I can use a cvs like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them, making it easy to track changes. I also can use branches to start new blog posts and keep my published version of the blog in the `master` branch.
+I could store it somewhere in a cloud, but since my posts are now just plain text files, I can use a VCS like https://github.com/[github]. It will host my files, make it accessible from anywhere and provide version control for them, making it easy to track changes. I also can use branches to start new blog posts and keep my published version of the blog in the `master` branch.
 
 First one down.
 
@@ -122,6 +122,6 @@ If you are not working on Linux/Unix - the whole process could be done on your V
 
 == Conclusion
 
-Overall I am very happy with the setup! It combines the ease of use and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and still feel like it's to much for it (I am thinking about getting static IP from my IPS, installing Ubuntu on my old laptop and running blog on it). You should be able easily run this setup in a free tier instance for a year.
+Overall I am very happy with the setup! It combines the ease of use and deploy with ease of hosting it. I am currently running it on https://aws.amazon.com/ec2/instance-types/t3/[t3.nano] instance and still feel like it's to much for it (I am thinking about getting static IP from my ISP, installing Ubuntu on my old laptop and running blog on it). You should be able easily run this setup in a free tier instance for a year.
 
 On top of that, there is one thing that I haven't mentioned in the post - customization. You can either play around with stylesheets yourself, or use one of the https://github.com/darshandsoni/asciidoctor-skins[community themes available]. I am currently running the one that mimics github style.
