@@ -1,4 +1,4 @@
-= Dealing with certificates in Java
+= Dealing with SSL certificates in Java
 Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
@@ -18,16 +18,24 @@ While this error might happen for a number of reasons, here I'll describe the on
 
 [NOTE]
 ====
-Please note that this post is not intended to have a general discussion about SSL Certificates and does not try to cover all sorts of problems you might face with them. It's just a good starting point with some suggestions, so you could poke around and hopefully find out the case of your issue easily.
+Please note that this post is not intended to have a general discussion about SSL Certificates and does not try to cover all sorts of problems you might face with them. It's just a good starting point with some suggestions, so you could poke around and hopefully find out the cause of your issue easily.
 ====
 
 == Invalid certificate chain
 
-Firstly, not all issues might be coming from your side. Sometimes it's a sever configuration that is faulty. One of such server configuration issues is - invalid certificate chain. It happens when a server only provides it's certificate without intermediate one, that links the server certificate with a Root CA added to the trust store. While most modern browsers handle this problem by fetching intermediate certificates themselves, Java doesn't.
+Firstly, not all issues might be coming from your side. Sometimes it's a sever configuration that is faulty. One of such server configuration issues is invalid certificate chain. It happens when a server only provides it's certificate without intermediate one, that links the server certificate with a Root CA added to the truststore. While most modern browsers handle this problem by fetching intermediate certificates themselves, Java doesn't.
 
+[NOTE]
+====
+Truststore in Java is a file that contains root certificates for Certificate Authorities that Java trusts. Meaning that for Java client to trust a resource - it's certificate should be signed with one of the authorities from the truststore.
+====
+
+.Certificate chain. Image source - wikipedia.
 image::https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Chain_Of_Trust.svg/1600px-Chain_Of_Trust.svg.png[Certificate Chain, Source Wikipedia]
 
-In order to check whether some server has a valid certificate chain you can use https://whatsmychaincert.com/[What's My Chain Cert?] . It also completes the chain if it's invalid and allows to download valid public certificate.
+In order to check whether some server has a valid certificate chain you can use https://whatsmychaincert.com/[What's My Chain Cert?]
+
+It also completes the chain if it's invalid and allows to download a valid public certificate.
 
 === Checking chain with command line tools
 
@@ -55,15 +63,41 @@ Certificate chain
 ---
 ----
 
-And check `Certificate chain` part. It should go up till the Root CA.
+And check `Certificate chain` part. It should go up till the Root CA (which is GlobalSign in this example).
 
 In case it's not - you have two options: either contact service responsible and ask him to fix the certificate chain, or add intermediate CA to the trust store.
 
 == Adding a certificate to the trust store
 
-Sometimes service you need to consume might use self-signed certificates, or certificates that are signed by some CA that is not trusted by Java (https://stackoverflow.com/questions/34110426/does-java-support-lets-encrypt-certificates[e.g. older versions of Java do not trust Let's Encrypt certificates]).
+When either service provides an invalid certificate chain or uses self-signed certificates, or simply certificates that are signed by some CA that is not trusted by Java (https://stackoverflow.com/questions/34110426/does-java-support-lets-encrypt-certificates[e.g. older versions of Java do not trust Let's Encrypt certificates]), you'll need to add this certificate to the truststore manually.
 
-You can check the list of the trusted certificate issuers by running:
+To do so you first need to download the certificate:
+
+[source,bash]
+----
+echo -n | openssl s_client -connect google.com:443 \
+    | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > server.crt
+----
+
+This one-liner uses the same `openssl` command that was shown before, but with https://www.gnu.org/software/sed/manual/sed.html[sed] piped with it to grab only the certificate part from the output.
+
+Once you got a certificate you need to import it into the Java trust store:
+
+[source,bash]
+----
+keytool -import -cacerts -alias server -file server.crt -storepass changeit -noprompt
+
+Certificate was added to keystore
+----
+
+[NOTE]
+====
+Please note the password after `-storepass` parameter. `changeit` is the default value.
+====
+
+== Verifying Java trust store
+
+You can check the list of the trusted certificate issuers by running the following command and verifying that it contains the one that you've added:
 
 [source,bash]
 ----
@@ -81,37 +115,11 @@ Certificate fingerprint (SHA-256): 9A:6E:C0:12:E1:A7:DA:9D:BE:34:19:4D:47:8A:D7:
 ...
 ----
 
-`openjdk version "11.0.11" 2021-04-20` yields 137 entries.
-
-[NOTE]
-====
-Please note the password after `-storepass` parameter. `changeit` is the default value.
-====
-
-In case a server certificate is signed by CA that is not trusted - you need to add it to the trust store manually. To do so you first need to download the certificate:
-
-[source,bash]
-----
-echo -n | openssl s_client -connect google.com:443 \
-    | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > server.crt;
-----
-
-And then import it into the Java trust store:
-
-[source,bash]
-----
-keytool -import -cacerts -alias server -file server.crt -storepass changeit -noprompt
-
-Certificate was added to keystore
-----
-
-== Verifying Java trust store
-
-In order to verify that you have your trust store configured as expected - you need to issue a test request to a service via secure connection. While you could simply spin up you application and see, it's not always convenient or safe.
+Even a better way of verification - is to issue a test request to a service via secure connection. While you could simply spin up you application and see, it's not always convenient or safe.
 
 A better approach would be to spin up a small utility with the same set of JVM options and verify the connection only. I'll use https://github.com/commandercool/ssl-check[ssl-check]. It simply creates a secure socket and initializes SSL Handshake process with a specified host.
 
-In order to run it - go to the machine where you have Java trust store configured or get an interactive shell inside a container that is going to run your application, download and compile https://github.com/commandercool/ssl-check[ssl-check]:
+In order to run it - go to the machine where you have Java truststore configured or get an interactive shell inside a container that is going to run your application, download and compile https://github.com/commandercool/ssl-check[ssl-check]:
 
 [source,bash]
 ----
