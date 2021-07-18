@@ -2,6 +2,7 @@
 :stylesdir: stylesheets
 :stylesheet: adoc-github.css
 :imagedir: images
+:favicon: {imagedir}/lightbulb.png
 
 == About
 
