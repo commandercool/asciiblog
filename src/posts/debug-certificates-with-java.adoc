@@ -39,7 +39,7 @@ It also completes the chain if it's invalid and allows to download a valid publi
 
 === Checking chain with command line tools
 
-In case you can't check a server certificate with https://whatsmychaincert.com/[What's My Chain Cert?] (because it's not available from the internet for example), you can use the powerful command line tool called https://www.openssl.org/[opnessl].
+In case you can't check a server certificate with https://whatsmychaincert.com/[What's My Chain Cert?] (because it's not accessible from the internet for example), you can use the powerful command line tool called https://www.openssl.org/[opnessl].
 
 Just run:
 
