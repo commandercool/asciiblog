@@ -3,6 +3,7 @@ Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
+:favicon: {imagedir}/lightbulb.png
 
 When I started my fist job as a programmer I was told by my mentor colleague that Unit Tests are my “best friends” and a “safety net”, and that I should not worry much about my code as long as tests are green.
 

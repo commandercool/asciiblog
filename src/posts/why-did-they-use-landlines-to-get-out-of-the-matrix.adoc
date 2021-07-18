@@ -3,6 +3,7 @@ Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
+:favicon: {imagedir}/lightbulb.png
 
 Remember https://www.imdb.com/title/tt0133093/[“The Matrix”] where you had to use a landline to get in or out of the Matrix.
 

@@ -3,6 +3,7 @@ Aleks Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
+:favicon: {imagedir}/lightbulb.png
 
 The null-check topic has always been debated over in Java community. https://stackoverflow.com/questions/271526/avoiding-nullpointerexception-in-java[Some suggest avoiding] null at all costs, some share tips on how to deal with it and others even think https://elegantcode.com/2010/05/01/say-no-to-null/[there should be no null value altogether].
 

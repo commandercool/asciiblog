@@ -3,6 +3,7 @@ Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
 :imagedir: ../images
+:favicon: {imagedir}/lightbulb.png
 
 As software developers, we always like to play with the latest and the greatest tools and frameworks. And also we like to apply practices that are considered the best at the moment. But in our daily work most of the time we are limited by the constraints of the current project. More often we have to deal with what we have, because it becomes hard to reason with the project management and persuade them to upgrade something or migrate somewhere.
 

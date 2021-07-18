@@ -2,6 +2,7 @@
 Aleks Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
+:favicon: {imagedir}/lightbulb.png
 
 If you are using Azure DevOps, the build number is generated for you automatically based on the current date and you end up with something like 20200923.4 (meaning it was a 4th build on 23rd of September). Frankly, this is not very descriptive.
 

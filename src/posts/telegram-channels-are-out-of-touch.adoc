@@ -1,0 +1,11 @@
+= Telegram channels don't work
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+Telegram channels are very inconvenient and don't work for me and for the majority of people I've been talking to. The main reason is - there is no aggregation across channels.
+
+In most cases channels are dedicated to a certain topics. Since posts are not messages you are waiting for or need to reply to, subscribers don't usually read them as soon as they are published. Meaning they end up with a dozen of unread posts in every channel they are subscribed to.
