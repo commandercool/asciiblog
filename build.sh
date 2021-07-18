@@ -1,4 +1,5 @@
 #!/bin/bash
 
 asciidoctor -R src -D target '**/*.adoc' && \
-cp -r src/images target/images
+mkdir -p target/images && \
+cp -r src/images target
