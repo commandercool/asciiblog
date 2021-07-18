@@ -1,4 +1,4 @@
-= Telegram channels don't work
+= Telegram channels are out of touch
 Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
