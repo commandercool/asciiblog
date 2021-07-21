@@ -9,25 +9,31 @@ Aleksand Erokhin <https://aerokhin.com>
 .System Design Interview – An insider's guide
 image::https://images-na.ssl-images-amazon.com/images/I/41WOfByjSPL._SX331_BO1,204,203,200_.jpg[Book cover, Source Amazon]
 
-I've read this book mostly in order to actualize my knowledge for the marked and to be better prepared for potential interview, but also in order to learn some of the design practices that might be helpful in my everyday work.
+I've read this book mostly in order to actualize my knowledge for the market and to be better prepared for potential interview, but also in order to learn some of the design practices that might be helpful in my everyday work.
 
-Overall the book is nicely structured and starts with basics: system scaling, back of the envelope estimation and sets up a framework for system design interview. The framework is pretty straight forward and takes three steps: understand the problem, propose high-level design and finally deep dive into specifics. This framework is used to go though some of the design problems that are solved already by one or more services that you are probably using daily: like news feed systems or google drive.
+Overall the book is nicely structured and starts with basics: system scaling and back of the envelope estimation. It sets up a framework for a system design interview, that is pretty straight forward and takes three steps:
 
-But even though the same established framework is used across chapters, some of the problems are more of algorithmic ones (like designing a unique id generator or a web crawler). So instead of architecture or component diagram you end up with something like an activity diagram in the end. Which is also fine, but not so much about design anymore.
+- understand a problem
+- propose high-level design
+- deep dive into specifics
 
-But the most insightful were the articles and videos linked after every chapter. They go deep into such systems as youtube and facebook, describing problems that engineer teams faced at some point and solution that they came up with. My favorites are YouTube Scalability talk at Seattle Conference 2007:
+This framework is used to go though some of the design problems that are solved already by one or more services you are probably using daily: like news feed systems or google drive.
+
+But even though the same established framework is used across all chapters, some of the problems are more of algorithmic ones (like designing an unique id generator or a web crawler). So instead of an architecture or a component diagram you end up with something like an activity diagram in the end. Which is also fine, but not so much about design anymore.
+
+I found the most insightful to be the articles and videos linked after every chapter. These are really great! They go deep into such systems as youtube and facebook, describing problems that engineer teams faced at some point and solutions that they came up with. My favorites are YouTube Scalability talk at Seattle Conference 2007:
 
 video::w5WVu624fY8[youtube]
 
-And this great dropbox talk, also quite old school:
+And this great dropbox talk (which is also quite old school):
 
 video::PE4gwstWhmc[youtube]
 
 These talks are great, as you can see how system's architecture has evolved over time. The framework proposed in the book is great, but it tries to embrace the whole complexity of the design. In these talks you see how in reality it starts simple and matures as you face bottlenecks and try to fix them.
 
-The thing I didn't quite get is the back of the envelope estimation. The author puts a lot of effort to provide those estimates in the beginning of each chapter and never uses them after. What I would like to see more is how these estimations are referenced to justify certain design decisions. It didn't make much sense to me to have this estimation just for the sake of estimations. I've skipped this part for some of the chapters and didn't even noticed that.
+The thing I didn't quite get is the back of the envelope estimation. The author puts a lot of effort to provide these estimations in the beginning of each chapter and never ever uses them after. What I would like to see more - is how these estimations are referenced to justify certain design decisions. It didn't make much sense to me to have an estimation just for the sake of it. I've skipped this part for some of the chapters and didn't ever noticed that or had a need to come back to them.
 
-Another point that bothered me a little is unnecessary diagrams. There a lot of diagrams to back up some simple and intuitive concepts. At the same time some of the more complex decisions are missing visual explanation.
+Another point that bothered me a little are unnecessary diagrams. There a lot of diagrams to back up some simple and intuitive concepts. At the same time some of the more complex decisions are missing visual explanation.
 
 The highlight is probably this one:
 
