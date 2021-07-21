@@ -24,7 +24,7 @@ Feel free to contact me via https://www.linkedin.com/in/aleksandr-erokhin/[linke
 
 == Posts
 
-- link:posts/honest-review-system-design-interview-insiders-second.html[Honest Review: System Design Interview Insiders Second] (July 21, 2021))
+- link:posts/honest-review-system-design-interview-insiders-second.html[Honest Review: System Design Interview Insiders Second] (July 21, 2021)
 - link:posts/debug-certificates-with-java.html[Dealing with certificates in Java] (July 17, 2021)
 - link:posts/how-setup-your-asciidoc-blog.html[How to setup your asciidoc blog] (June 7, 2021)
 - link:posts/creation-of-a-telnet-easter-egg-for-your-site.html[Creation of a telnet Easter egg for your site] (April 13, 2021)
