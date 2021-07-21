@@ -1,0 +1,37 @@
+= Honest review: System Design Interview – An insider's guide, Second Edition by Alex Xu
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+.System Design Interview – An insider's guide
+image::https://images-na.ssl-images-amazon.com/images/I/41WOfByjSPL._SX331_BO1,204,203,200_.jpg[Book cover, Source Amazon]
+
+I've read this book mostly in order to actualize my knowledge for the marked and to be better prepared for potential interview, but also in order to learn some of the design practices that might be helpful in my everyday work.
+
+Overall the book is nicely structured and starts with basics: system scaling, back of the envelope estimation and sets up a framework for system design interview. The framework is pretty straight forward and takes three steps: understand the problem, propose high-level design and finally deep dive into specifics. This framework is used to go though some of the design problems that are solved already by one or more services that you are probably using daily: like news feed systems or google drive.
+
+But even though the same established framework is used across chapters, some of the problems are more of algorithmic ones (like designing a unique id generator or a web crawler). So instead of architecture or component diagram you end up with something like an activity diagram in the end. Which is also fine, but not so much about design anymore.
+
+But the most insightful were the articles and videos linked after every chapter. They go deep into such systems as youtube and facebook, describing problems that engineer teams faced at some point and solution that they came up with. My favorites are YouTube Scalability talk at Seattle Conference 2007:
+
+video::w5WVu624fY8[youtube]
+
+And this great dropbox talk, also quite old school:
+
+video::PE4gwstWhmc[youtube]
+
+These talks are great, as you can see how system's architecture has evolved over time. The framework proposed in the book is great, but it tries to embrace the whole complexity of the design. In these talks you see how in reality it starts simple and matures as you face bottlenecks and try to fix them.
+
+The thing I didn't quite get is the back of the envelope estimation. The author puts a lot of effort to provide those estimates in the beginning of each chapter and never uses them after. What I would like to see more is how these estimations are referenced to justify certain design decisions. It didn't make much sense to me to have this estimation just for the sake of estimations. I've skipped this part for some of the chapters and didn't even noticed that.
+
+Another point that bothered me a little is unnecessary diagrams. There a lot of diagrams to back up some simple and intuitive concepts. At the same time some of the more complex decisions are missing visual explanation.
+
+The highlight is probably this one:
+
+.Figure example from the book
+image:{imagedir}/disk-space.png[Useful diagram]
+
+Other than that - it's a great book to read. I suggest you to skip parts that you find boring and go through additional materials at the end of each chapter.
