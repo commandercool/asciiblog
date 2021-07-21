@@ -1,4 +1,4 @@
-= Honest review: System Design Interview – An insider's guide, Second Edition by Alex Xu
+= Book Club: System Design Interview – An insider's guide, Second Edition by Alex Xu
 Aleksand Erokhin <https://aerokhin.com>
 :stylesdir: ../stylesheets
 :stylesheet: adoc-github.css
