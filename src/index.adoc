@@ -26,6 +26,7 @@ You can find my CV here: link:{imagedir}/Resume-Aleksandr-Erokhin.pdf[Resume Ale
 
 == Posts
 
+- link:posts/how-to-improve-your-daily.html[How to improve your daily standup meetings] (July 28, 2021)
 - link:posts/honest-review-system-design-interview-insiders-second.html[Book Club: System Design Interview – An insider's guide, Second Edition by Alex Xu] (July 21, 2021)
 - link:posts/debug-certificates-with-java.html[Dealing with certificates in Java] (July 17, 2021)
 - link:posts/how-setup-your-asciidoc-blog.html[How to setup your asciidoc blog] (June 7, 2021)
