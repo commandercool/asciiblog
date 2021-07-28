@@ -22,6 +22,8 @@ Welcome to my personal page where I stare at you intensively and sometimes post 
 
 Feel free to contact me via https://www.linkedin.com/in/aleksandr-erokhin/[linked.in] or mailto:erohin_a_v@mail.ru[email].
 
+You can find my CV here: link:{imagedir}/Resume-Aleksandr-Erokhin.pdf[Resume Aleksandr Erokhin]
+
 == Posts
 
 - link:posts/honest-review-system-design-interview-insiders-second.html[Book Club: System Design Interview – An insider's guide, Second Edition by Alex Xu] (July 21, 2021)
