@@ -8,7 +8,7 @@ Aleksand Erokhin <https://aerokhin.com>
 
 What complains about daily standup meetings have you heard? "They are useless", "I could have been doing some real work instead", "I just tell my status and sit there for another half an our"?
 
-That's how any developer feels sometimes. That can happen when your scum master or team lead simply follows agile rituals without any idea behind it. But even if they are putting an effort into it - a daily might still feel off.
+That's how any developer feels sometimes. That can happen when your scrum master or team lead simply follows agile rituals without any idea behind it. But even if they are putting an effort into it - a daily might still feel off.
 
 Here are some of the approaches we use successfully in our team in order to make daily standup meetings more meaningful and make team experience with it go from this:
 
