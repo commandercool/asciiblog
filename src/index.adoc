@@ -26,12 +26,17 @@ You can find my CV here: link:{imagedir}/Resume-Aleksandr-Erokhin.pdf[Resume Ale
 
 == Posts
 
+=== 2021
+
 - link:posts/how-to-improve-your-daily.html[How to improve your daily standup meetings] (July 28, 2021)
 - link:posts/honest-review-system-design-interview-insiders-second.html[Book Club: System Design Interview – An insider's guide, Second Edition by Alex Xu] (July 21, 2021)
 - link:posts/debug-certificates-with-java.html[Dealing with certificates in Java] (July 17, 2021)
 - link:posts/how-setup-your-asciidoc-blog.html[How to setup your asciidoc blog] (June 7, 2021)
 - link:posts/creation-of-a-telnet-easter-egg-for-your-site.html[Creation of a telnet Easter egg for your site] (April 13, 2021)
 - link:posts/why-did-they-use-landlines-to-get-out-of-the-matrix.html[Why did they use landlines to get out of the Matrix] (April 10, 2021)
+
+=== 2020
+
 - link:posts/let-your-project-evolve-naturally.html[Let your project evolve naturally] (October 26, 2020)
 - link:posts/what-makes-a-good-manager.html[What makes a good manager] (October 2, 2020)
 - link:posts/what-is-the-right-unit-in-unit-test-after-all.html[What is the right unit in Unit Test after all] (September 28, 2020)
