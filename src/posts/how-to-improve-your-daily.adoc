@@ -6,11 +6,11 @@ Aleksand Erokhin <https://aerokhin.com>
 :icons: font
 :favicon: {imagedir}/lightbulb.png
 
-What complains about daily standup meetings have you heard? "They are useless", "I could have been doing some real work instead", "I just tell my status and sit there for another half an our"?
+What complains about daily standup meetings have you heard? "They are useless", "I could have been doing some real work instead", "I just tell my status and sit there for another half an hour"?
 
 That's how any developer feels sometimes. That can happen when your scrum master or team lead simply follows agile rituals without any idea behind it. But even if they are putting an effort into it - a daily might still feel off.
 
-Here are some of the approaches we use successfully in our team in order to make daily standup meetings more meaningful and make team experience with it go from this:
+Here are some of the approaches we use successfully in our team in order to make daily standup meetings more meaningful and make the team experience with it go from this:
 
 image::https://media.giphy.com/media/PjocMfAvxO0EZPed6M/giphy.gif[Boring meeting]
 
@@ -26,7 +26,7 @@ In order to make teammates more involved, you need to make daily attendance opti
 
 By making it optional, you are lifting the burden of inevitable waste of time off of a developer. A developer now knows that he is not obligated to interrupt his flow in order to participate. If everything is going well for him - he can just happily code away some new cool feature. And for a team leader a ticket tracking system should be sufficient enough to track the progress.
 
-On the other hand - in case a team member has an impediment, he'll be there to share his pain and seek for assistance. Or in case he's done an amazing job closing some tasks - he'll also join in order to announce such great news. In any case - you'll get an involved participant and will not interrupt the flow of others, who won't bring anything to the meeting except their frustration about the fact that they had to interrupt their work.
+On the other hand - in case a team member has an impediment, he'll be there to share his pain and seek for assistance. Or in case he's done an amazing job closing some tasks - he'll also join in order to announce such great news. In any case - you'll get an involved participant and will not interrupt the flow of others, who won't bring anything to the meeting, except their frustration about the fact that they had to interrupt their work.
 
 == 2. Shuffle the order
 
@@ -34,20 +34,20 @@ A daily can easily become a routine. You know the order, in which everyone repor
 
 Two team members might be dealing with the same exact issue, but they'll never know, because they don't listen. When you know the drill - you can get distracted easily, because you don't have to pay attention.
 
-But if order is different every time - you have to follow and stay alerted. Once things are not scripted anymore, they require more involvement from your side. You don't know when your turn comes, so you have to listen now. It's also harder to zone out right after, so you stay alerted for some short period of time, that is enough to pay attention to other team members.
+But if the order is different every time - you have to follow and stay alert. Once things are not scripted anymore, they require more involvement from your side. You don't know when your turn comes, so you have to listen now. It's also harder to zone out right after, so you stay alert for some short period of time, that is enough to pay attention to other team members.
 
 == 3. Timebox the meeting (but allow prolongation in a smaller round)
 
 A daily meeting should be carefully timeboxed. You don't usually want it to go over a half of an hour (presuming team size of 10 people or so). But it doesn't mean that you have to interrupt a team member, who is describing his issue, just to move along. That might very well be the most frustrating thing: having to explain something, when no one cares, and get interrupted on top of that.
 
-Good moderation approach would be to let a person describe his problem deep enough to understand who could help. Let others ask questions. Two or three minutes should be enough to get an idea about a problem realm and assign people who should be involved in order to resolve the impediment. As soon as it done - you can move along and stay in the call in a smaller round for a more detailed discussion after the daily.
+Good moderation approach would be to let a person describe his problem deep enough to understand who could help. Let others ask questions. Two or three minutes should be enough to get an idea about a problem realm and assign people who should be involved in order to resolve the impediment. As soon as it's done - you can move along and stay in the call in a smaller round for a more detailed discussion after the daily.
 
 ==  4. Use the time at the end for team announcements
 
 A daily is a great sync point. In case you have any team wide announcement or question - it's a good idea to have it at the end of the meeting, when everyone is through with the status update. This way you are bringing additional value to the meeting and probably saving some time you'd need for sync up later on.
 
-You can also use this time for announcements from other team members or for a small talk. After all it's still hard for some of us to switch to a full remote work. Chit-chat after a daily could somewhat substitute a coffee break and help your colleges to recharge a bit.
+You can also use this time for announcements from other team members or for a small talk. After all, it's still hard for some of us to switch to a full remote work. Chit-chat after a daily could somewhat substitute a coffee break and help your colleagues to recharge a bit.
 
-Making this meeting less formal in that way might add value and make people to look forward to it.
+Making this meeting less formal in that way might add value and make people look forward to it.
 
 image::https://media.giphy.com/media/ElRQNGDelVQQg/giphy.gif[Way to go with the daily]
