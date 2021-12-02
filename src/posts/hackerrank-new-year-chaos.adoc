@@ -1,6 +1,12 @@
 = Hackerrank: New Year Chaos
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
 
-I was tackling some problems from Hackerrank to keep my brain from drying out. And as New Year approached, I've come across this neat New Year Chaos problem, that is defined as follows:
+I was tackling some problems from https://www.hackerrank.com/[Hackerrank] to keep my brain from drying out. And as New Year approached, I've come across this neat New Year Chaos problem, that is defined as follows:
 
 [source,bash]
 ----
@@ -8,6 +14,8 @@ It is New Year's Day and people are in line for the Wonderland rollercoaster rid
 
 Determine the minimum number of bribes that took place to get to a given queue order. Print the number of bribes, or, if anyone has bribed more than two people, print "Too chaotic".
 ----
+
+image::https://media.giphy.com/media/xT5LMWSMSsE5lji9LW/giphy.gif[Homer the briber]
 
 This problem doesn't sound like a complicated one, before you start solving it. Intuitive approach (at least in my case) was to try and unroll all swaps in the queue based on the number a person wears and his actual position. This doesn't sound like bad approach if you didn't read the problem carefully. Because it says "determine the minimum number of bribes", and depending on the procedure you'll use to unroll the swaps - you won't necessarily get the minimum number.
 
@@ -70,3 +78,7 @@ private static void updateBefore(int sticker, int[] before) {
     }
 }
 ----
+
+The complexity of this solution is `O(bn)` for computational resources, where `b` is the number of bribers and `n` - the length of the queue, and `O(2n)` for memory.
+
+Now, I am pretty sure that `O(n)` solutions is possible when tracking bribers more carefully, but the one described was the one that made sense for me event after a day and worked.
