@@ -40,7 +40,7 @@ We start to move through the queue from the head and do the following:
 - calculate the difference between a person's sticker and his position in the queue to detect a possible bribe: `bribe = sticker - position`;
 - if `bribe > 2` - we are done, print out `Too chaotic` and terminate. There is no way he's came that close from his initial position;
 - if `0 < bribe < 2` - it's a legitimate bribe, we add it to the `bribes` and update `before[]` with `+1` for every position before that `sticker`. For example, if a guy with a sticker `5` is 3rd in line, then guys with stickers `3` and `4` were bribed once more: `before[3] += 1; before[4] += 1; `;
-- if `bribe < 0` we need to check the `diff = before[sticker] + bribe`. We know that the person was bribed, and we know how many bribers are before him (`before[sticker]`). But has he bribed himself? if the `diff > 0` - he is standing closer to the head of the queue than he would be standing if he had all the bribers before him. Hence - he is a briber himself!
+- if `bribe < 0` we need to check the `diff = before[sticker] + bribe`. We know that the person was bribed, and we know how many bribers are before him (`before[sticker]`). But has he bribed himself? if the `diff > 0` - he is standing closer to the head of the queue than he would be standing if he had all the bribers before him. Hence - he is a briber himself! One important note - there is no need to add this briber to the `before[]` array, because bribing a briner doesn't make more bribers. And in case the guy rebribed all bribers before him - we'd come across him first when going from the head of the queue.
 
 The full algorithm in Java:
 
