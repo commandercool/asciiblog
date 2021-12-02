@@ -1,0 +1,72 @@
+= Hackerrank: New Year Chaos
+
+I was tackling some problems from Hackerrank to keep my brain from drying out. And as New Year approached, I've come across this neat New Year Chaos problem, that is defined as follows:
+
+[source,bash]
+----
+It is New Year's Day and people are in line for the Wonderland rollercoaster ride. Each person wears a sticker indicating their initial position in the queue from to 1 to n. Any person can bribe the person directly in front of them to swap positions, but they still wear their original sticker. One person can bribe at most two others.
+
+Determine the minimum number of bribes that took place to get to a given queue order. Print the number of bribes, or, if anyone has bribed more than two people, print "Too chaotic".
+----
+
+This problem doesn't sound like a complicated one, before you start solving it. Intuitive approach (at least in my case) was to try and unroll all swaps in the queue based on the number a person wears and his actual position. This doesn't sound like bad approach if you didn't read the problem carefully. Because it says "determine the minimum number of bribes", and depending on the procedure you'll use to unroll the swaps - you won't necessarily get the minimum number.
+
+Consider the following example:
+
+[source,bash]
+----
+Initial line: 1 2 3 4 5
+Let's say that 5th guy has bribed 2 guys in front of him, we'll get: 1 2 3 4 5 -> 1 2 5 3 4 (number of bribers - 2)
+After that a guy with a number 3 also decided to bribe 2 guys in front of him: 1 2 5 3 4 -> 1 3 2 5 4 (total bries - 4)
+
+
+The same resulting queue could be achieved with 3rd and 5th each bribing 1, making 2 bribes in total, which is the minimum.
+----
+
+To get the minimum number of bribes we need to focus only on people that are out of place (or closer to head of the queue then they should be according to the sticker). But we can't solely take people out of place, we need to keep track of people who were bribed to be able to figure out: are they on this particular place in queue because of bribe, because of being bribed or both.
+
+So the idea is the following. We define an addition array `before[]` that holds the number of bribers before a person with a specific sticker. For example, if there are 2 bribers before a guy with sticker 5, then `before[5] == 2`. Initially `before[]` is filled with zeros. Also we need to keep the total bribe count in `bribes` variable.
+
+We start to move through the queue and do the following:
+
+- we calculate the difference between a person's sticker and his position in the queue to detect a possible bribe: `bribe = sticker - position`;
+- if `bribe > 2` - we are done, print out `Too chaotic` and terminate;
+- if `2 > bribe > 0` - it's a legitimate bribe, we add it to the `bribes` and update `before[]` with `+1` for every position before that `sticker`. For example, if a guy with a sticker `5` is 3rd in line, then guys with stickers `3` and `4` were bribed at least once;
+- if `bribe < 0` we need to check the `diff = before[sticker] + bribe`. We know that the person was bribed, and we know how many bribers are before him (`before[sticker]`). But has he bribed himself? if the `diff > 0` - he is standing closer to the head of the queue than he would be standing if he had all the bribers before him. Hence - he is a briber himself!
+
+The full algorithm in Java:
+
+[source,java]
+----
+public static void minimumBribes(List<Integer> q) {
+    int bribes = 0;
+    int[] before = new int[q.size() + 1];
+    
+    for (int i = 0; i < q.size(); i++) {
+        int sticker = q.get(i);
+        int bribe = sticker - i - 1;
+        if (bribe > 2) {
+            System.out.println("Too chaotic");
+            return;
+        } else if (bribe > 0) {
+            // the guy has bribed not more than 2
+            updateBefore(sticker, before);
+            bribes += bribe;
+        } else {
+            // the guy was bribed
+            int diff = before[sticker] + bribe;
+            if (diff > 0) {
+                // and bribed back!
+                bribes += diff;
+            }
+        }
+    }
+    System.out.println(bribes);
+}
+
+private static void updateBefore(int sticker, int[] before) {
+    for (int j = 1; j < sticker; j++) {
+        before[j] += 1;
+    }
+}
+----
