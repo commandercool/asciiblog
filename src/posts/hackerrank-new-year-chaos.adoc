@@ -24,7 +24,9 @@ Consider the following example:
 [source,bash]
 ----
 Initial line: 1 2 3 4 5
+
 Let's say that 5th guy has bribed 2 guys in front of him, we'll get: 1 2 3 4 5 -> 1 2 5 3 4 (number of bribers - 2)
+
 After that a guy with a number 3 also decided to bribe 2 guys in front of him: 1 2 5 3 4 -> 1 3 2 5 4 (total bries - 4)
 
 
@@ -33,7 +35,7 @@ The same resulting queue could be achieved with 3rd and 5th each bribing 1, maki
 
 To get the minimum number of bribes we need to focus only on people that are out of place (or closer to the head of the queue than they should be according to the sticker). But we can't solely take people out of place, we need to keep track of people who were bribed to be able to figure out: are they in this particular place in the queue because of a bribe, because of being bribed or both.
 
-So the idea is the following. We define an addition array `before[]` that holds the number of bribers before a person with a specific sticker. For example, if there are 2 bribers before a guy with sticker 5, then `before[5] == 2`. Initially `before[]` is filled with zeros. Also we need to keep the total bribe count in `bribes` variable.
+So the idea is the following. We define an additional array `before[]` that holds the number of bribers before a person with a specific sticker. For example, if there are 2 bribers before a guy with sticker 5, then `before[5] == 2`. Initially `before[]` is filled with zeros. Also we need to keep the total bribe count in `bribes` variable.
 
 We start to move through the queue from the head and do the following:
 
