@@ -51,3 +51,9 @@ You can also use this time for announcements from other team members or for a sm
 Making this meeting less formal in that way might add value and make people look forward to it.
 
 image::https://media.giphy.com/media/ElRQNGDelVQQg/giphy.gif[Way to go with the daily]
+
+== Post Scriptum
+
+Apparently, folks at GitLab took it one step further and have made all the meetings optional. They call it https://about.gitlab.com/company/culture/all-remote/asynchronous/[asynchronous work]. It's encouraged to push most of you communication to asynchronous channels, meaning that you don't have to be in the same place (physically or virtually) at the same time to discuss any business matter. Sounds neat!
+
+Check out also this cool post https://sam.beckham.io/wrote/all-meetings-are-optional/?utm_content=buffer33082&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer[All Meetings are Optional] by Sam Beckham.
