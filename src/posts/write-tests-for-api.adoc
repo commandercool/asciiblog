@@ -6,7 +6,7 @@ Aleksand Erokhin <https://aerokhin.com>
 :icons: font
 :favicon: {imagedir}/lightbulb.png
 
-I've been advocating for this approach ever since we had to rebuild one of the services twice due to vague specification from the customer. During the second time I was very frustrated with our unit test suite that was bounded to much to the internal implementation rather than API.
+I've been advocating this approach ever since we had to rebuild one of the services twice due to vague specification from the customer. During the second time I was very frustrated with our unit test suite that was bounded too much to the internal implementation rather than API.
 
 I had hard time convincing colleagues back then to treat our service as a black box for which resulting behavior is known, but not the implementation. Now I am glad I can stand on giant's shoulders and link quotes like this one:
 
