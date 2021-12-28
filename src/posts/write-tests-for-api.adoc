@@ -1,0 +1,19 @@
+= Write your tests for API, not implementation
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+I've been advocating for this approach ever since we had to rebuild one of the services twice due to vague specification from the customer. During the second time I was very frustrated with our unit test suite that was bounded to much to the internal implementation rather than API.
+
+I had hard time convincing colleagues back then to treat our service as a black box for which resulting behavior is known, but not the implementation. Now I am glad I can stand on giant's shoulders and link quotes like this one:
+
+++++
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">6. write tests against public API instead of unit tests for internal implementation modules. then you can fearlessly rewrite the implementation using tests for verification and guidance. you can even keep both implementation versions at the same time and run tests against both.</p>&mdash; Dan (@dan_abramov) <a href="https://twitter.com/dan_abramov/status/1470613745315594247?ref_src=twsrc%5Etfw">December 14, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+++++
+
+Next time someone doesn't want to listen to me, I hope he'd listen to a guy much smarter than me with much more experience.
+
+I'll try to keep collecting quotes and links like this in order to backup my point next time someone decides to couple his tests too close to the implementation details.

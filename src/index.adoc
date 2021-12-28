@@ -73,6 +73,7 @@ You can find my CV here: link:{imagedir}/Resume-Aleksandr-Erokhin.pdf[Resume Ale
 == Posts
 
 === 2021
+- link:posts/write-tests-for-api.html[Write your tests for API, not implementation] (December 28, 2021)
 - link:posts/hackerrank-new-year-chaos.html[Hackerrank: New Year Chaos] (December 3, 2021)
 - link:posts/how-to-improve-your-daily.html[How to improve your daily standup meetings] (July 28, 2021)
 - link:posts/honest-review-system-design-interview-insiders-second.html[Book Club: System Design Interview – An insider's guide, Second Edition by Alex Xu] (July 21, 2021)
