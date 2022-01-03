@@ -1,0 +1,13 @@
+= Unnecessary Illustrations
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+In this post I want to collect unnecessary or confusing illustrations that I've came over in technical literature.
+
+image::{imagedir}/designing-data-intensive-applications-calls.PNG[calls]
+image::{imagedir}/disk-space.png[disk]
+image::{imagedir}/software-engineering-at-google-buckets.jpg[buckets]
