@@ -1,0 +1,83 @@
+= Mercedes Benz Interview - Square out of words
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+[source,java]
+----
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        List<String> strings = new ArrayList<>();
+        strings.add("run");
+        strings.add("red");
+        strings.add("new");
+        strings.add("dew");
+        strings.add("apple");
+        System.out.println(getSqNumber(strings));
+    }
+
+    private static int getSqNumber(List<String> strings) {
+        Map<Character, List<String>> startsWith = new HashMap<>();
+        Map<Character, List<String>> endsWith = new HashMap<>();
+
+        for (String s : strings) {
+            char start = getFirst(s);
+            char end = getLast(s);
+
+            List<String> slist = startsWith.getOrDefault(start, new ArrayList<>());
+            slist.add(s);
+            startsWith.put(start, slist);
+
+            List<String> elist = endsWith.getOrDefault(end, new ArrayList<>());
+            elist.add(s);
+            endsWith.put(end, elist);
+        }
+
+        int count = 0;
+        Set<String> used = new HashSet<>();
+
+        for (String s : strings) {
+            used.add(s);
+            for (String left : startsWith.get(getFirst(s))) {
+                if (!used.contains(left)) {
+                    used.add(left);
+                    List<String> rlist = startsWith.getOrDefault(getLast(s), new ArrayList<>());
+                    for (String right : rlist) {
+                        if (!used.contains(right)) {
+                            used.add(right);
+                            List<String> bListStart = startsWith.getOrDefault(getLast(left), new ArrayList<>());
+                            List<String> bListEnd = endsWith.getOrDefault(getLast(right), new ArrayList<>());
+                            bListStart.retainAll(bListEnd);
+                            for (String bottom : bListStart) {
+                                if (!used.contains(bottom)) {
+                                    System.out.println("Square: " + s + " " + left + " " + right + " " + bottom);
+                                    count++;
+                                }
+                            }
+                            used.remove(right);
+                        }
+                    }
+                    used.remove(left);
+                }
+            }
+            used.remove(s);
+        }
+        return count;
+    }
+
+    private static char getFirst(String s) {
+        return s.charAt(0);
+    }
+
+    private static char getLast(String s) {
+        return s.charAt(s.length() - 1);
+    }
+
+}
+----

@@ -1,0 +1,113 @@
+= Amazon Interview - Maintain A Window With Max Values Problem
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+Here is one problem from a real amazon screening:
+
+[source,bash]
+----
+You are consuming a stream of data (potentially endless), you need to provide an API for a user to retrieve a list of N biggest values seen recently.
+----
+
+Not gonna lie, even though the problem itself is not that sophisticated, I always find such tasks confusing. My mind keeps going about things that are irrelevant for the problem, like:
+
+- How do we consume this endless stream, what's the API for that? Do we have to poll for values, are they pushed to us?
+- How do we deal with concurrency? What are the guaranties that we should provide to the consumer of our API that expects to get a window of values for us?
+
+Those are not related to the model problem at hand, but I keep wondering that even after double checking with the interviewer. That keeps my mind on the wrong things. First you need to remove all parts of the problem that are not in scope (at least for now), like: dealing with concurrency, implementing API for stream consuming and so on.
+
+When we read the problem carefully, here is what we've been really asked to do:
+
+- maintain a window of the biggest values of some size `N`;
+- track the value order;
+- make adding values time efficient;
+
+[NOTE]
+====
+If you'd like to practice and try to solve the problem by yourself, I suggest you to stop right here and do not read any further before you come up with a solution.
+====
+
+And if you think about it - there is no single common structure that does that for you. You can maintain the minimum value of the window in some sort of a https://en.wikipedia.org/wiki/Heap_(data_structure)[heap structure] (https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html[PriorityQueue] implementation in Java) in `O(log(N))`, but you would loose the order. You can keep the order in a https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html[LinkedList], but than you have to traverse the list each time you need to remove an element from it or find a minimum one.
+
+So if we map these requirement to the requirement for the underlying data structure we are looking for, we'd get:
+
+- efficiently maintain minimum element accessible at any time;
+- preserve the order in which elements are added;
+- efficiently remove an element from a random position;
+
+It's clear that there is no such structure that'd fit all these requirements. But who said we should only use one?
+
+https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html[PriorityQueue] is a great choice when it comes to keeping track of the minimum element on the window (the first one for removal when we come across a bigger one). On the other hand - it by no means helps us to preserve to order in which we've encountered elements.
+
+What great with preserving such order is a https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html[LinkedList]. But it is not that great with removing random elements: when we get an element that is bigger than the minimum one in our window - we need to remove this minimum from the list and add one that is bigger.
+
+Luckily there is a structure in Java that combines this neat https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html[LinkedList] ordering with `O(1)` random access time: https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html[LinkedHashSet]. And it can work for us in case all values in the stream are unique. If not - we'd need to go for LinkedList, which would degrade our overall time complexity to `O(N)`, where `N` - is the window size.
+
+This way, if we settle with https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html[PriorityQueue] and https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html[LinkedHashSet], we'd get the following properties for our API:
+
+- inspecting every next value in the stream is `O(log(N))`, where `N` - is the size of the window we have to maintain, because:
+* getting minimum element of the windows is `O(1)`;
+* removing value from the https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html[LinkedHashSet] is `O(1)`;
+* adding value to the https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html[LinkedHashSet] is `O(1)`;
+* adding element to the https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html[PriorityQueue] is `O(log(N))`.
+
+Solution in this case would go as follows:
+
+[source,java]
+----
+import java.util.LinkedHashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+public class Solution {
+
+    private static final Integer N = 5;
+
+    private static PriorityQueue<Integer> heap = new PriorityQueue<>();
+    private static LinkedHashSet<Integer> latestMax = new LinkedHashSet<>();
+
+    public static void consume(Integer value) {
+        if (heap.size() < N) {
+            heap.add(value);
+            latestMax.add(value);
+        } else {
+            if (value > heap.peek()) {
+                latestMax.remove(heap.poll());
+                heap.add(value);
+                latestMax.add(value);
+            }
+        }
+    }
+
+    public static Set<Integer> getLatestMax() {
+        return latestMax;
+    }
+
+    public static void main(String[] args) {
+        consume(5);
+        consume(1);
+        consume(3);
+        consume(4);
+        consume(16);
+        System.out.println(getLatestMax());
+
+        consume(2);
+        consume(12);
+        consume(6);
+        System.out.println(getLatestMax());
+    }
+
+}
+----
+
+The code will produce the following output:
+
+[source,bash]
+----
+[5, 1, 3, 4, 16]
+[5, 4, 16, 12, 6]
+----

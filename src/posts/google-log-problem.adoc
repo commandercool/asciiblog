@@ -1,0 +1,82 @@
+= Google Interview - Request Logger Problem
+Aleksand Erokhin <https://aerokhin.com>
+:stylesdir: ../stylesheets
+:stylesheet: adoc-github.css
+:imagedir: ../images
+:icons: font
+:favicon: {imagedir}/lightbulb.png
+
+[source,java]
+----
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Solution {
+
+    static class Request {
+        int id;
+        long startTimeMs;
+        long endTimeMs;
+
+        public Request(int id, long startTimeMs) {
+            this.id = id;
+            this.startTimeMs = startTimeMs;
+        }
+
+        @Override
+        public String toString() {
+            return "Request: " + id;
+        }
+    }
+
+    static Queue<Request> queue = new ConcurrentLinkedQueue<>();
+    static Map<Integer, Request> rmap = new ConcurrentHashMap<>();
+    static volatile boolean logRunning = true;
+
+    public static void startRequest(Request request) {
+        rmap.put(request.id, request);
+        queue.add(request);
+    }
+
+    public static void endRequest(int id) {
+        Request request = rmap.get(id);
+        request.endTimeMs = System.currentTimeMillis();
+    }
+
+    private static void log() {
+        while (logRunning) {
+            if (queue.peek() != null && queue.peek().endTimeMs != 0) {
+                System.out.println(queue.poll());
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(Solution::log);
+        Request r0 = new Request(0, System.currentTimeMillis());
+        Request r1 = new Request(1, System.currentTimeMillis());
+        Request r2 = new Request(2, System.currentTimeMillis());
+
+        startRequest(r0);
+        startRequest(r1);
+        startRequest(r2);
+
+        endRequest(r1.id);
+        Thread.sleep(3000);
+
+        endRequest(r0.id);
+        Thread.sleep(3000);
+
+        endRequest(r2.id);
+        logRunning = false;
+
+        executorService.shutdown();
+    }
+
+}
+----
